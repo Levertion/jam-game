@@ -12,4 +12,6 @@ typedef struct Shape
 
 Shape *GetRandomSShape();
 
+int LoadShapes();
+
 #endif
