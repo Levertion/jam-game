@@ -13,8 +13,11 @@ void draw_leftside()
 #ifdef DEBUG_L1
         DrawText(TextFormat("S: %i L: %i", items_conveyor.start, items_conveyor.length), 0, 0, 20, BLACK);
 #endif
-        DrawTexture(RING_INDEX_IDS(items_conveyor, i)->art,
-                    RING_INDEX_POS(items_conveyor, i).x, RING_INDEX_POS(items_conveyor, i).y, WHITE);
+        if (items_conveyor.active[RING_INDEX_RAW(items_conveyor, i)])
+        {
+            DrawTexture(RING_INDEX_IDS(items_conveyor, i)->art,
+                        RING_INDEX_POS(items_conveyor, i).x, RING_INDEX_POS(items_conveyor, i).y, WHITE);
+        }
         if (current_hold_item.shape != NULL)
         {
             DrawTexture(current_hold_item.shape->art, 0, 0, WHITE);
