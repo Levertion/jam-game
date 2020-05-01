@@ -1,5 +1,7 @@
 #include "trolley_state.h"
 
+#include <stdlib.h>
+
 static TrolleyState the_trolley_state = {.items = NULL, .numItems = 0};
 
 void add_item(Item item){
