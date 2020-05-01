@@ -42,14 +42,14 @@ int main(void)
 
         draw_leftside();
 
-        DrawTrolley(get_state());
-
         EndScissorMode();
 
         //right side
         BeginScissorMode(LEFT_WIDTH, 0, SCREEN_WIDTH - LEFT_WIDTH, SCREEN_HEIGHT);
 
         ClearBackground(RAYWHITE);
+
+        DrawTrolley(get_state());
 
         DrawRectangle(LEFT_WIDTH, 0, DIVIDOR_WIDTH, SCREEN_HEIGHT, BLACK);
 
