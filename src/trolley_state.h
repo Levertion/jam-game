@@ -3,12 +3,14 @@
 
 #include "shapes.h"
 
+enum Rotation {up, right, down, left};
+
 typedef struct _item
 {
     Shape *shape;
     int posX;
     int posY;
-    float rotation;
+    enum Rotation rotation;
 } Item;
 
 typedef struct _trolleyState
