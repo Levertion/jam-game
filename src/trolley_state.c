@@ -10,7 +10,7 @@ void add_item(Item item){
         the_trolley_state.numItems = 1;
     }
     else{
-        the_trolley_state.items = realloc(sizeof(Item) * the_trolley_state.numItems + 1);
+        the_trolley_state.items = realloc(the_trolley_state.items, sizeof(Item) * the_trolley_state.numItems + 1);
     }
     the_trolley_state.items[the_trolley_state.numItems++] = item;
 }
