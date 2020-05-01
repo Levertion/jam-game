@@ -2,7 +2,6 @@
 #include "leftside_logic.h"
 #include "raylib.h"
 #include "shapes.h"
-extern Shape AllShapes[3];
 void draw_leftside()
 {
     ClearBackground(GRAY);

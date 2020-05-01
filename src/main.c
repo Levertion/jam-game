@@ -57,7 +57,7 @@ int main(void)
 
     // De-Initialization
     //--------------------------------------------------------------------------------------
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < NUMBER_OF_SHAPES; i++)
     {
         UnloadTexture(AllShapes[i].art);
     }
