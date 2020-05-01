@@ -36,7 +36,9 @@ void DrawTrolleyGrid()
     {
         for (int j = 0; j < TROLLEY_HEIGHT; j++)
         {
-            DrawRectangleLines(i * GRID_BLOCK_LENGTH, j * GRID_BLOCK_LENGTH, GRID_BLOCK_LENGTH, GRID_BLOCK_LENGTH, BLACK);
+            DrawRectangleLines((int)GetTrolleyPos().x + i * GRID_BLOCK_LENGTH,
+                               (int)GetTrolleyPos().y + j * GRID_BLOCK_LENGTH,
+                               GRID_BLOCK_LENGTH, GRID_BLOCK_LENGTH, BLACK);
         }
     }
 }
