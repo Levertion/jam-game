@@ -1,5 +1,5 @@
 #include "shapes.h"
-
+#include<stddef.h>
 Shape longshape = {
     {
     {0,0,0,0,0,0,0,0},
