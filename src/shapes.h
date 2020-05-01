@@ -10,6 +10,8 @@ typedef struct Shape
     // Details
 } Shape;
 
+Shape AllShapes[3];
+
 Shape *GetRandomSShape();
 
 int LoadShapes();
