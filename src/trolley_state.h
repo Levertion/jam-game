@@ -33,5 +33,6 @@ void add_item(Item item);
 void add_initial_items();
 
 TrolleyState get_state();
+void DeleteAllItems();
 
 #endif

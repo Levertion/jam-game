@@ -1,4 +1,5 @@
 #include "trolley_state.h"
+#include "raylib.h"
 
 #include <stdlib.h>
 
@@ -26,12 +27,26 @@ void add_item(Item item)
 
 void add_initial_items()
 {
-    Item item1 = {
-        .shape = GetRandomShape(),
-        .posX = 0,
-        .posY = 0,
-        .rotation = 0};
-    add_item(item1);
+    for (int i = 0; i < 4; i++)
+    {
+        add_item((Item){
+            .shape = GetRandomShape(),
+            .posX = GetRandomValue(0, 10),
+            .posY = GetRandomValue(0, 10),
+            .rotation = GetRandomValue(0, 3)});
+        /* code */
+    }
+
+    // add_item((Item){
+    //     .shape = GetShapeWithIndex(1),
+    //     .posX = 0,
+    //     .posY = 0,
+    //     .rotation = 0});
+}
+
+void DeleteAllItems()
+{
+    state.numItems = 0;
 }
 
 TrolleyState get_state()

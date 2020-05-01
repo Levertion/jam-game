@@ -15,5 +15,6 @@ enum Direction
 Item MoveItem(Item item, enum Direction dir);
 bool WouldCollide(TrolleyState state, Item item, int exclude);
 bool CanMoveItem(TrolleyState state, int itemIdx, enum Direction dir);
+bool IsColliding(TrolleyState state);
 
 #endif

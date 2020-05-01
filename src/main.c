@@ -3,6 +3,7 @@
 #include "raylib.h"
 #include "leftside_logic.h"
 #include "leftside_graphics.h"
+#include "trolley_logic.h"
 
 #define SCREEN_WIDTH (1600)
 #define SCREEN_HEIGHT (900)
@@ -34,6 +35,11 @@ int main(void)
         // TODO: Update your variables here
         //----------------------------------------------------------------------------------
         leftside_logic();
+        if (IsKeyPressed(KEY_R))
+        {
+            DeleteAllItems();
+            add_initial_items();
+        }
         // Draw
         //----------------------------------------------------------------------------------
         BeginDrawing();
@@ -52,6 +58,7 @@ int main(void)
         DrawTrolleyGrid();
 
         DrawTrolley(get_state());
+        IsColliding(get_state());
 
         DrawRectangle(LEFT_WIDTH, 0, DIVIDOR_WIDTH, SCREEN_HEIGHT, BLACK);
 

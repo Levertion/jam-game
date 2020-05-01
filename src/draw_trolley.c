@@ -5,16 +5,8 @@
 
 Vector2 GetTrolleyPos()
 {
-    Vector2 trolley_pos = {889, 360};
-    return trolley_pos;
+    return (Vector2){889, 360};
 }
-
-/*void InitialiseTrolley()
-{
-    //This should help the trolley position adapt to the resolution
-    //static Vector2 grid_start_ratio = {0.556f, 0.4f};
-    static Vector2 top_left_pos = {(float)SCREEN_WIDTH * grid_start_ratio.x, (float)SCREEN_HEIGHT * grid_start_ratio.y};
-}*/
 
 void DrawTrolley(TrolleyState state)
 {
@@ -25,8 +17,10 @@ void DrawTrolley(TrolleyState state)
             GetTrolleyPos().x + (float)this_item.posX * GRID_BLOCK_LENGTH + ((this_item.rotation == right || this_item.rotation == down) ? (this_item.shape->art.width) : 0),
             GetTrolleyPos().y + (float)this_item.posY * GRID_BLOCK_LENGTH + ((this_item.rotation == down || this_item.rotation == left) ? (this_item.shape->art.height) : 0)};
         float rotation_degrees = 90.f * (float)this_item.rotation;
-
-        DrawTextureEx(this_item.shape->art, render_pos, rotation_degrees, 1.0f, WHITE);
+        Color test = WHITE;
+        // Set image
+        test.a = 200;
+        DrawTextureEx(this_item.shape->art, render_pos, rotation_degrees, 1.0f, test);
     }
 };
 
