@@ -29,3 +29,14 @@ void DrawTrolley(TrolleyState state)
         DrawTextureEx(this_item.shape->art, render_pos, rotation_degrees, 1.0f, WHITE);
     }
 };
+
+void DrawTrolleyGrid()
+{
+    for (int i = 0; i < TROLLEY_WIDTH; i++)
+    {
+        for (int j = 0; j < TROLLEY_HEIGHT; j++)
+        {
+            DrawRectangleLines(i * GRID_BLOCK_LENGTH, j * GRID_BLOCK_LENGTH, GRID_BLOCK_LENGTH, GRID_BLOCK_LENGTH, BLACK);
+        }
+    }
+}

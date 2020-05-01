@@ -49,6 +49,8 @@ int main(void)
 
         ClearBackground(RAYWHITE);
 
+        DrawTrolleyGrid();
+
         DrawTrolley(get_state());
 
         DrawRectangle(LEFT_WIDTH, 0, DIVIDOR_WIDTH, SCREEN_HEIGHT, BLACK);
