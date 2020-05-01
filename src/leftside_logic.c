@@ -4,6 +4,7 @@
 #define LS_LOGICAL_HEIGHT (900)
 #define LS_LOGICAL_WIDTH (600)
 static const int conveyor_velocity = 5;
+
 void leftside_init()
 {
     items_conveyor.start = 0;
@@ -43,6 +44,24 @@ void leftside_logic()
         if (items_conveyor.start == items_conveyor.length)
         {
             items_conveyor.start = 0;
+        }
+    }
+
+    //------------------------------------------------
+    //Mouse Selection
+    //------------------------------------------------
+    int mouse_block_x, mouse_block_y;
+    for (int i = 0; i < items_conveyor.length; i++)
+    {
+        //mouse in bounding box
+        if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && GetMouseX() >= RING_INDEX_POS(items_conveyor, i).x && GetMouseX() <= RING_INDEX_POS(items_conveyor, i).x + RING_INDEX_IDS(items_conveyor, i)->art.width && GetMouseY() >= RING_INDEX_POS(items_conveyor, i).y && GetMouseY() <= RING_INDEX_POS(items_conveyor, i).y + RING_INDEX_IDS(items_conveyor, i)->art.height)
+        {
+            mouse_block_x = (GetMouseX() - RING_INDEX_POS(items_conveyor, i).x) / (RING_INDEX_IDS(items_conveyor, i)->art.width / 8);
+            mouse_block_y = (GetMouseY() - RING_INDEX_POS(items_conveyor, i).y) / (RING_INDEX_IDS(items_conveyor, i)->art.height / 8);
+            if (RING_INDEX_IDS(items_conveyor, i)->grid[mouse_block_y][mouse_block_x] == 1)
+            {
+                current_hold_item.shape = RING_INDEX_IDS(items_conveyor, i);
+            }
         }
     }
 

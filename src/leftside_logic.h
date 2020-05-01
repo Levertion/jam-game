@@ -14,6 +14,14 @@ typedef struct
     int start;
     int length;
 } RingBufferItems;
+
+typedef struct
+{
+    Shape *shape;
+} HoldItem;
+
+HoldItem current_hold_item;
+
 RingBufferItems items_conveyor;
 void leftside_init();
 void leftside_logic();

@@ -22,8 +22,8 @@ void DrawTrolley(TrolleyState state)
     {
         Item this_item = state.items[i];
         Vector2 render_pos = {
-            GetTrolleyPos().x + (float)this_item.posX * GRID_BLOCK_LENGTH + (this_item.rotation == right || this_item.rotation == down) ? (this_item.shape->art.height) : 0,
-            GetTrolleyPos().y + (float)this_item.posY * GRID_BLOCK_LENGTH + (this_item.rotation == down || this_item.rotation == left) ? (this_item.shape->art.height) : 0};
+            GetTrolleyPos().x + (float)this_item.posX * GRID_BLOCK_LENGTH + ((this_item.rotation == right || this_item.rotation == down) ? (this_item.shape->art.width) : 0),
+            GetTrolleyPos().y + (float)this_item.posY * GRID_BLOCK_LENGTH + ((this_item.rotation == down || this_item.rotation == left) ? (this_item.shape->art.height) : 0)};
         float rotation_degrees = 90.f * (float)this_item.rotation;
 
         DrawTextureEx(this_item.shape->art, render_pos, rotation_degrees, 1.0f, WHITE);

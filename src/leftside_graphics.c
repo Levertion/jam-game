@@ -2,6 +2,7 @@
 #include "leftside_logic.h"
 #include "raylib.h"
 #include "shapes.h"
+#include <stddef.h>
 //#define DEBUG_L1
 void draw_leftside()
 {
@@ -14,5 +15,9 @@ void draw_leftside()
 #endif
         DrawTexture(RING_INDEX_IDS(items_conveyor, i)->art,
                     RING_INDEX_POS(items_conveyor, i).x, RING_INDEX_POS(items_conveyor, i).y, WHITE);
+        if (current_hold_item.shape != NULL)
+        {
+            DrawTexture(current_hold_item.shape->art, 0, 0, WHITE);
+        }
     }
 }
