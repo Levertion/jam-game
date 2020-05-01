@@ -4,7 +4,7 @@
 #include "raylib.h"
 #include "shapes.h"
 
-#define MAX_BUFFER_SIZE_ITEMS (40)
+#define MAX_BUFFER_SIZE_ITEMS (20)
 #define RING_INDEX_IDS(buffer, i) (buffer.shapes[i + buffer.start - (i + buffer.start >= buffer.length) * buffer.length])
 #define RING_INDEX_POS(buffer, i) (buffer.positions[i + buffer.start - (i + buffer.start >= buffer.length) * buffer.length])
 typedef struct

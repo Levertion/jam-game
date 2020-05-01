@@ -22,25 +22,25 @@ void leftside_logic()
 
         items_conveyor.shapes[items_conveyor.length] = GetRandomShape();
         items_conveyor.positions[items_conveyor.length].x = GetRandomValue(0, LS_LOGICAL_WIDTH - items_conveyor.shapes[items_conveyor.length]->art.width);
-        RING_INDEX_POS(items_conveyor, items_conveyor.length - 1).y = -items_conveyor.shapes[items_conveyor.length]->art.height;
+        items_conveyor.positions[items_conveyor.length].y = -items_conveyor.shapes[items_conveyor.length]->art.height;
         deploy_cooldown = items_conveyor.shapes[items_conveyor.length]->art.height / conveyor_velocity;
 
         items_conveyor.length++;
     }
 
     //cull out of bounds
-    while (RING_INDEX_POS(items_conveyor, items_conveyor.start).y > LS_LOGICAL_HEIGHT)
+    while (RING_INDEX_POS(items_conveyor, 0).y > LS_LOGICAL_HEIGHT + RING_INDEX_IDS(items_conveyor, 0)->art.height)
     {
         //reroll image
-        RING_INDEX_IDS(items_conveyor, items_conveyor.start) = GetRandomShape();
-        RING_INDEX_POS(items_conveyor, items_conveyor.start).x = GetRandomValue(0, LS_LOGICAL_WIDTH - RING_INDEX_IDS(items_conveyor, items_conveyor.start)->art.width);
-        RING_INDEX_POS(items_conveyor, items_conveyor.start).y = -RING_INDEX_IDS(items_conveyor, items_conveyor.start)->art.height - deploy_cooldown * conveyor_velocity;
+        RING_INDEX_IDS(items_conveyor, 0) = GetRandomShape();
+        RING_INDEX_POS(items_conveyor, 0).x = GetRandomValue(0, LS_LOGICAL_WIDTH - RING_INDEX_IDS(items_conveyor, 0)->art.width);
+        RING_INDEX_POS(items_conveyor, 0).y = -RING_INDEX_IDS(items_conveyor, 0)->art.height - deploy_cooldown * conveyor_velocity;
 
-        deploy_cooldown += RING_INDEX_IDS(items_conveyor, items_conveyor.start)->art.height / conveyor_velocity;
+        deploy_cooldown += RING_INDEX_IDS(items_conveyor, 0)->art.height / conveyor_velocity;
 
         //shifts to next position
         items_conveyor.start++;
-        if (items_conveyor.start == MAX_BUFFER_SIZE_ITEMS)
+        if (items_conveyor.start == items_conveyor.length)
         {
             items_conveyor.start = 0;
         }
