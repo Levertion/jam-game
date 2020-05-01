@@ -1,3 +1,4 @@
+#include "draw_trolley.h"
 #include "raylib.h"
 
 #define SCREEN_WIDTH (1600)

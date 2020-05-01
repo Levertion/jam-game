@@ -7,4 +7,4 @@ typedef struct Shape
     // Details
 } Shape;
 
-Shape GetRandomShape();
+Shape *GetRandomShape();
