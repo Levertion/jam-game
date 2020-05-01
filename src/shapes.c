@@ -6,8 +6,8 @@ static Shape AllShapes[NUMBER_OF_SHAPES];
 
 int LoadShapes()
 {
-    Texture2D longShapeTexture = LoadTexture("assets/LongShape.png");
-    Texture2D shortShapeTexture = LoadTexture("assets/ShortShape.png");
+    Texture2D toiletPaperShapeTexture = LoadTexture("assets/ToiletPaperShape.png");
+    Texture2D spoonShapeTexture = LoadTexture("assets/ShoonShape.png");
     Texture2D dogShapeTexture = LoadTexture("assets/DogShape.png");
     Texture2D pizzaShapeTexture = LoadTexture("assets/PizzaShape.png");
     Texture2D canShapeTexture = LoadTexture("assets/CanShape.png");
@@ -23,7 +23,7 @@ int LoadShapes()
          {0, 0, 0, 0, 0, 0, 0, 0},
          {0, 0, 0, 0, 0, 0, 0, 0},
          {0, 0, 0, 0, 0, 0, 0, 0}},
-        longShapeTexture};
+        toiletPaperShapeTexture};
 
     Shape shortshape = {
         {{0, 0, 0, 0, 0, 0, 0, 0},
@@ -34,7 +34,7 @@ int LoadShapes()
          {0, 0, 0, 0, 0, 0, 0, 0},
          {0, 0, 0, 0, 0, 0, 0, 0},
          {0, 0, 0, 0, 0, 0, 0, 0}},
-        shortShapeTexture};
+        spoonShapeTexture};
 
     Shape dogshape = {
         {{1, 1, 0, 0, 1, 1, 1, 1},
@@ -106,6 +106,12 @@ Shape *GetRandomShape()
     int id = GetRandomValue(0, NUMBER_OF_SHAPES - 1);
     return &AllShapes[id];
 };
+
+// Temporary for testing
+Shape *GetShapeWithIndex(int index)
+{
+    return &AllShapes[index];
+}
 
 int UnLoadShapes()
 {

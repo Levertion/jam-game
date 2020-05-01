@@ -11,6 +11,7 @@ typedef struct Shape
 } Shape;
 
 Shape *GetRandomShape();
+Shape *GetShapeWithIndex(int index);
 
 int LoadShapes();
 int UnLoadShapes();
