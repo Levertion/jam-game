@@ -10,7 +10,7 @@ void draw_leftside()
     {
         if (RING_INDEX_POS(items_conveyor, i).y >= 0)
         {
-            DrawTexture(AllShapes[RING_INDEX_IDS(items_conveyor, i)].art,
+            DrawTexture(RING_INDEX_IDS(items_conveyor, i)->art,
                         RING_INDEX_POS(items_conveyor, i).x, RING_INDEX_POS(items_conveyor, i).y, WHITE);
         }
     }
