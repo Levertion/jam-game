@@ -8,6 +8,8 @@
 #define LEFT_WIDTH (600)
 #define DIVIDOR_WIDTH (2)
 
+extern Shape *AllShapes;
+
 // Change this depending on the path of your executable relative to the assets folder
 #define ASSET_PATH "assets/"
 
@@ -19,6 +21,10 @@ int main(void)
 
     SetTargetFPS(60); // Set our game to run at 60 frames-per-second
 
+    LoadShapes();
+
+    leftside_init();
+
     // Main game loop
     while (!WindowShouldClose()) // Detect window close button or ESC key
     {
@@ -26,19 +32,19 @@ int main(void)
         //----------------------------------------------------------------------------------
         // TODO: Update your variables here
         //----------------------------------------------------------------------------------
-
+        leftside_logic();
         // Draw
         //----------------------------------------------------------------------------------
         BeginDrawing();
         //left side
-        BeginScissorMode(0,0,LEFT_WIDTH,SCREEN_HEIGHT);
-        
+        BeginScissorMode(0, 0, LEFT_WIDTH, SCREEN_HEIGHT);
+
         draw_leftside();
 
         EndScissorMode();
 
         //right side
-        BeginScissorMode(LEFT_WIDTH,0,SCREEN_WIDTH-LEFT_WIDTH,SCREEN_HEIGHT);
+        BeginScissorMode(LEFT_WIDTH, 0, SCREEN_WIDTH - LEFT_WIDTH, SCREEN_HEIGHT);
 
         ClearBackground(RAYWHITE);
 
@@ -53,6 +59,10 @@ int main(void)
 
     // De-Initialization
     //--------------------------------------------------------------------------------------
+    for (int i = 0; i < 3; i++)
+    {
+        UnloadTexture(AllShapes[i].art);
+    }
     CloseWindow(); // Close window and OpenGL context
 
     return 0;
