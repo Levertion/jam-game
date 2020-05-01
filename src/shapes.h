@@ -1,3 +1,6 @@
+#ifndef SHAPES___GUARD____H
+#define SHAPES___GUARD____H
+
 #include "raylib.h"
 
 typedef struct Shape
@@ -7,4 +10,6 @@ typedef struct Shape
     // Details
 } Shape;
 
-Shape *GetRandomShape();
+Shape *GetRandomSShape();
+
+#endif
