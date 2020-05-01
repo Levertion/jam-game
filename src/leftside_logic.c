@@ -19,25 +19,31 @@ void leftside_logic()
     }
     else if (items_conveyor.length < MAX_BUFFER_SIZE_ITEMS)
     {
-        RING_INDEX_IDS(items_conveyor, items_conveyor.length) = GetRandomShape();
-        Shape *id_inquestion = RING_INDEX_IDS(items_conveyor, items_conveyor.length);
-        RING_INDEX_POS(items_conveyor, items_conveyor.length).x = (float)GetRandomValue(0, LS_LOGICAL_WIDTH - id_inquestion->art.width);
-        RING_INDEX_POS(items_conveyor, items_conveyor.length).y = -(float)RING_INDEX_IDS(items_conveyor, items_conveyor.length)->art.height;
 
-        deploy_cooldown = 20 + RING_INDEX_IDS(items_conveyor, items_conveyor.length)->art.height / conveyor_velocity;
+        items_conveyor.shapes[items_conveyor.length] = GetRandomShape();
+        items_conveyor.positions[items_conveyor.length].x = GetRandomValue(0, LS_LOGICAL_WIDTH - items_conveyor.shapes[items_conveyor.length]->art.width);
+        RING_INDEX_POS(items_conveyor, items_conveyor.length - 1).y = -items_conveyor.shapes[items_conveyor.length]->art.height;
+        deploy_cooldown = items_conveyor.shapes[items_conveyor.length]->art.height / conveyor_velocity;
+
         items_conveyor.length++;
     }
 
     //cull out of bounds
-    while (RING_INDEX_POS(items_conveyor, items_conveyor.start).y > LS_LOGICAL_HEIGHT && items_conveyor.length > 0)
+    while (RING_INDEX_POS(items_conveyor, items_conveyor.start).y > LS_LOGICAL_HEIGHT)
     {
+        //reroll image
+        RING_INDEX_IDS(items_conveyor, items_conveyor.start) = GetRandomShape();
+        RING_INDEX_POS(items_conveyor, items_conveyor.start).x = GetRandomValue(0, LS_LOGICAL_WIDTH - RING_INDEX_IDS(items_conveyor, items_conveyor.start)->art.width);
+        RING_INDEX_POS(items_conveyor, items_conveyor.start).y = -RING_INDEX_IDS(items_conveyor, items_conveyor.start)->art.height - deploy_cooldown * conveyor_velocity;
+
+        deploy_cooldown += RING_INDEX_IDS(items_conveyor, items_conveyor.start)->art.height / conveyor_velocity;
+
         //shifts to next position
         items_conveyor.start++;
         if (items_conveyor.start == MAX_BUFFER_SIZE_ITEMS)
         {
             items_conveyor.start = 0;
         }
-        items_conveyor.length--;
     }
 
     for (int i = 0; i < items_conveyor.length; i++)
