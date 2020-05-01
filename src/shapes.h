@@ -2,7 +2,7 @@
 
 typedef struct Shape
 {
-    bool grid[6][6];
+    int grid[8][8];
     Texture2D art;
     // Details
 } Shape;
