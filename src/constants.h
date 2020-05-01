@@ -5,5 +5,6 @@
 #define SCREEN_HEIGHT (900)
 #define LEFT_WIDTH (600)
 #define DIVIDOR_WIDTH (2)
+#define GRID_BLOCK_LENGTH (30)
 
 #endif
