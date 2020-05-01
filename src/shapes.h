@@ -2,6 +2,7 @@
 #define SHAPES___GUARD____H
 
 #include "raylib.h"
+#define NUMBER_OF_SHAPES 4
 
 typedef struct Shape
 {
@@ -10,7 +11,7 @@ typedef struct Shape
     // Details
 } Shape;
 
-Shape AllShapes[3];
+Shape AllShapes[NUMBER_OF_SHAPES];
 
 Shape *GetRandomSShape();
 
