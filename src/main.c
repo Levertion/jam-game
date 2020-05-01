@@ -8,8 +8,6 @@
 #define LEFT_WIDTH (600)
 #define DIVIDOR_WIDTH (2)
 
-extern Shape *AllShapes;
-
 // Change this depending on the path of your executable relative to the assets folder
 #define ASSET_PATH "assets/"
 
