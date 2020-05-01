@@ -1,6 +1,6 @@
 #include "shapes.h"
 #include <stddef.h>
-Shape AllShapes[3];
+
 
 
 int LoadShapes()
@@ -50,7 +50,7 @@ int LoadShapes()
         {1,1,0,0,1,1,0,0}
         },
         dogShapeTexture
-    };
+    }; 
 
     AllShapes[0] = longshape;
     AllShapes[1] = shortshape;
