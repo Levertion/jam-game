@@ -2,14 +2,6 @@
 #include "trolley_logic.h"
 #include "stdbool.h"
 
-enum Direction
-{
-    Up,
-    Down,
-    Left,
-    Right
-};
-
 Item MoveItem(Item item, enum Direction dir)
 {
     Item result = item;
