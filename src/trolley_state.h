@@ -3,7 +3,13 @@
 
 #include "shapes.h"
 
-enum Rotation {up, right, down, left};
+enum Rotation
+{
+    up,
+    right,
+    down,
+    left
+};
 
 typedef struct _item
 {
@@ -22,5 +28,9 @@ typedef struct _trolleyState
 //initialise the item array if there are no items
 //otherwise reallocate memory with the new item added
 void add_item(Item item);
+
+void add_initial_items();
+
+TrolleyState get_state();
 
 #endif

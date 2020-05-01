@@ -1,4 +1,5 @@
 #include "draw_trolley.h"
+#include "trolley_state.h"
 #include "raylib.h"
 #include "leftside_logic.h"
 #include "leftside_graphics.h"
@@ -23,6 +24,8 @@ int main(void)
 
     leftside_init();
 
+    add_initial_items();
+
     // Main game loop
     while (!WindowShouldClose()) // Detect window close button or ESC key
     {
@@ -38,6 +41,8 @@ int main(void)
         BeginScissorMode(0, 0, LEFT_WIDTH, SCREEN_HEIGHT);
 
         draw_leftside();
+
+        DrawTrolley(get_state());
 
         EndScissorMode();
 
