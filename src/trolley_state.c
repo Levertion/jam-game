@@ -1,6 +1,8 @@
 #include "trolley_state.h"
 
-TrolleyState the_trolley_state = {.items = NULL, .numItems = 0};
+#include <stdlib.h>
+
+static TrolleyState the_trolley_state = {.items = NULL, .numItems = 0};
 
 void add_item(Item item){
     if (the_trolley_state.items = NULL){
@@ -8,8 +10,11 @@ void add_item(Item item){
         the_trolley_state.numItems = 1;
     }
     else{
-        the_trolley_state.items = realloc(sizeof(Item) * the_trolley_state.numItems + 1);
+        the_trolley_state.items = realloc(the_trolley_state.items, sizeof(Item) * the_trolley_state.numItems + 1);
     }
     the_trolley_state.items[the_trolley_state.numItems++] = item;
 }
 
+TrolleyState get_state(){
+    return the_trolley_state;
+}
