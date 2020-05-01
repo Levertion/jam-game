@@ -110,14 +110,14 @@ static bool ItemsCollide(Item item, Item item2)
     return collided;
 }
 
-bool WouldCollide(TrolleyState state, Item item, int exclude)
+bool WouldCollide(const TrolleyState *state, Item item, int exclude)
 {
     bool result = false;
-    for (int i = 0; i < state.numItems; i++)
+    for (int i = 0; i < state->len; i++)
     {
         if (i != exclude)
         {
-            Item item2 = state.items[i];
+            Item item2 = state->items[i];
             if (ItemsCollide(item, item2))
             {
                 result = true;
@@ -127,13 +127,13 @@ bool WouldCollide(TrolleyState state, Item item, int exclude)
     return result;
 }
 
-bool IsColliding(TrolleyState state)
+bool IsColliding(const TrolleyState *state)
 {
     bool result = false;
     // Last item has already been fully checked
-    for (int i = 0; i < state.numItems; i++)
+    for (int i = 0; i < state->len; i++)
     {
-        if (WouldCollide(state, state.items[i], i))
+        if (WouldCollide(state, state->items[i], i))
         {
             result = true;
         }
@@ -141,8 +141,8 @@ bool IsColliding(TrolleyState state)
     return result;
 }
 
-bool CanMoveItem(TrolleyState state, int itemIdx, enum Direction dir)
+bool CanMoveItem(const TrolleyState *state, int itemIdx, enum Direction dir)
 {
-    Item moved = MoveItem(state.items[itemIdx], dir);
+    Item moved = MoveItem(state->items[itemIdx], dir);
     return !WouldCollide(state, moved, itemIdx);
 }

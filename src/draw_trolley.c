@@ -8,11 +8,11 @@ Vector2 GetTrolleyPos()
     return (Vector2){889, 360};
 }
 
-void DrawTrolley(TrolleyState state)
+void DrawTrolley(const TrolleyState *state)
 {
-    for (int i = 0; i < state.numItems; i++)
+    for (int i = 0; i < state->len; i++)
     {
-        Item this_item = state.items[i];
+        Item this_item = state->items[i];
         Vector2 render_pos = {
             GetTrolleyPos().x + (float)this_item.posX * GRID_BLOCK_LENGTH + ((this_item.rotation == right || this_item.rotation == down) ? (this_item.shape->art.width) : 0),
             GetTrolleyPos().y + (float)this_item.posY * GRID_BLOCK_LENGTH + ((this_item.rotation == down || this_item.rotation == left) ? (this_item.shape->art.height) : 0)};

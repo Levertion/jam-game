@@ -13,8 +13,8 @@ enum Direction
 };
 
 Item MoveItem(Item item, enum Direction dir);
-bool WouldCollide(TrolleyState state, Item item, int exclude);
-bool CanMoveItem(TrolleyState state, int itemIdx, enum Direction dir);
-bool IsColliding(TrolleyState state);
+bool WouldCollide(const TrolleyState *state, Item item, int exclude);
+bool CanMoveItem(const TrolleyState *state, int itemIdx, enum Direction dir);
+bool IsColliding(const TrolleyState *state);
 
 #endif

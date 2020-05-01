@@ -5,51 +5,42 @@
 
 #define INITIAL_CAPACITY 4
 
-static TrolleyState state = {.items = NULL, .numItems = 0, .capacity = 0};
-
-void add_item(Item item)
+TrolleyState DefaultState()
 {
-    if (state.capacity <= state.numItems)
+    return (TrolleyState){.items = NULL, .capacity = 0, .len = 0};
+}
+
+void AddItem(TrolleyState *state, Item item)
+{
+    if (state->capacity <= state->len)
     {
-        if (state.capacity == 0)
+        if (state->capacity == 0)
         {
-            state.capacity = INITIAL_CAPACITY;
+            state->capacity = INITIAL_CAPACITY;
         }
         else
         {
-            state.capacity *= 2;
+            state->capacity *= 2;
         }
-        state.items = realloc(state.items, sizeof(Item) * state.capacity);
+        state->items = realloc(state->items, sizeof(Item) * state->capacity);
     }
-    state.items[state.numItems] = item;
-    state.numItems++;
+    state->items[state->len] = item;
+    state->len++;
 }
 
-void add_initial_items()
+void AddRandomItems(TrolleyState *state)
 {
     for (int i = 0; i < 4; i++)
     {
-        add_item((Item){
-            .shape = GetRandomShape(),
-            .posX = GetRandomValue(0, 10),
-            .posY = GetRandomValue(0, 10),
-            .rotation = GetRandomValue(0, 3)});
-        /* code */
+        AddItem(state, (Item){
+                           .shape = GetRandomShape(),
+                           .posX = GetRandomValue(0, 10),
+                           .posY = GetRandomValue(0, 10),
+                           .rotation = GetRandomValue(0, 3)});
     }
-
-    // add_item((Item){
-    //     .shape = GetShapeWithIndex(1),
-    //     .posX = 0,
-    //     .posY = 0,
-    //     .rotation = 0});
 }
 
-void DeleteAllItems()
+void DeleteAllItems(TrolleyState *state)
 {
-    state.numItems = 0;
-}
-
-TrolleyState get_state()
-{
-    return state;
+    state->len = 0;
 }

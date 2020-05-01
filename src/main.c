@@ -24,8 +24,9 @@ int main(void)
     LoadShapes();
 
     leftside_init();
+    TrolleyState trolley = DefaultState();
 
-    add_initial_items();
+    AddRandomItems(&trolley);
 
     // Main game loop
     while (!WindowShouldClose()) // Detect window close button or ESC key
@@ -37,8 +38,8 @@ int main(void)
         leftside_logic();
         if (IsKeyPressed(KEY_R))
         {
-            DeleteAllItems();
-            add_initial_items();
+            DeleteAllItems(&trolley);
+            AddRandomItems(&trolley);
         }
         // Draw
         //----------------------------------------------------------------------------------
@@ -57,8 +58,8 @@ int main(void)
 
         DrawTrolleyGrid();
 
-        DrawTrolley(get_state());
-        IsColliding(get_state());
+        DrawTrolley(&trolley);
+        IsColliding(&trolley);
 
         DrawRectangle(LEFT_WIDTH, 0, DIVIDOR_WIDTH, SCREEN_HEIGHT, BLACK);
 

@@ -22,17 +22,14 @@ typedef struct _item
 typedef struct _trolleyState
 {
     Item *items;
-    int numItems;
+    int len;
     int capacity;
 } TrolleyState;
 
-//initialise the item array if there are no items
-//otherwise reallocate memory with the new item added
-void add_item(Item item);
+TrolleyState DefaultState();
 
-void add_initial_items();
-
-TrolleyState get_state();
-void DeleteAllItems();
+void AddItem(TrolleyState *state, Item item);
+void AddRandomItems(TrolleyState *state);
+void DeleteAllItems(TrolleyState *state);
 
 #endif
