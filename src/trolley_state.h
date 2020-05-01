@@ -8,6 +8,7 @@ typedef struct _item
     Shape *shape;
     int posX;
     int posY;
+    float rotation;
 } Item;
 
 typedef struct _trolleyState
