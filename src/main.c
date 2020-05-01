@@ -57,14 +57,7 @@ int main(void)
 
     // De-Initialization
     //--------------------------------------------------------------------------------------
-<<<<<<< HEAD
-    for (int i = 0; i < NUMBER_OF_SHAPES; i++)
-    {
-        UnloadTexture(AllShapes[i].art);
-    }
-=======
     UnLoadShapes();
->>>>>>> 9c660572142c950cba1cf941e89de06d7abe0776
     CloseWindow(); // Close window and OpenGL context
 
     return 0;
