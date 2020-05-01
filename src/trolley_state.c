@@ -1,6 +1,6 @@
 #include "trolley_state.h"
 
-TrolleyState the_trolley_state = {.items = NULL, .numItems = 0};
+static TrolleyState the_trolley_state = {.items = NULL, .numItems = 0};
 
 void add_item(Item item){
     if (the_trolley_state.items = NULL){
@@ -13,3 +13,6 @@ void add_item(Item item){
     the_trolley_state.items[the_trolley_state.numItems++] = item;
 }
 
+TrolleyState get_state(){
+    return the_trolley_state;
+}

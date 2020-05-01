@@ -15,5 +15,6 @@ add_executable(raylib_template
     src/draw_trolley.c
     src/leftside_logic.c
     src/leftside_graphics.c
+    src/trolley_state.c
 )
 target_link_libraries(raylib_template PRIVATE raylib)
