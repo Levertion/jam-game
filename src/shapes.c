@@ -7,7 +7,7 @@ static Shape AllShapes[NUMBER_OF_SHAPES];
 int LoadShapes()
 {
     Texture2D toiletPaperShapeTexture = LoadTexture("assets/ToiletPaperShape.png");
-    Texture2D spoonShapeTexture = LoadTexture("assets/ShoonShape.png");
+    Texture2D spoonShapeTexture = LoadTexture("assets/SpoonShape.png");
     Texture2D dogShapeTexture = LoadTexture("assets/DogShape.png");
     Texture2D pizzaShapeTexture = LoadTexture("assets/PizzaShape.png");
     Texture2D canShapeTexture = LoadTexture("assets/CanShape.png");
