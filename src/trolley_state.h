@@ -3,7 +3,13 @@
 
 #include "shapes.h"
 
-enum Rotation {up, right, down, left};
+enum Rotation
+{
+    up,
+    right,
+    down,
+    left
+};
 
 typedef struct _item
 {
@@ -17,6 +23,7 @@ typedef struct _trolleyState
 {
     Item *items;
     int numItems;
+    int capacity;
 } TrolleyState;
 
 //initialise the item array if there are no items

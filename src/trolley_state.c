@@ -2,19 +2,29 @@
 
 #include <stdlib.h>
 
-static TrolleyState the_trolley_state = {.items = NULL, .numItems = 0};
+#define INITIAL_CAPACITY 4
 
-void add_item(Item item){
-    if (the_trolley_state.items = NULL){
-        the_trolley_state.items = malloc(sizeof(Item));
-        the_trolley_state.numItems = 1;
+static TrolleyState state = {.items = NULL, .numItems = 0, .capacity = 0};
+
+void add_item(Item item)
+{
+    if (state.capacity <= state.numItems)
+    {
+        if (state.capacity == 0)
+        {
+            state.capacity = INITIAL_CAPACITY;
+        }
+        else
+        {
+            state.capacity *= 2;
+        }
+        state.items = realloc(state.items, sizeof(Item) * state.capacity);
     }
-    else{
-        the_trolley_state.items = realloc(the_trolley_state.items, sizeof(Item) * the_trolley_state.numItems + 1);
-    }
-    the_trolley_state.items[the_trolley_state.numItems++] = item;
+    state.items[state.numItems] = item;
+    state.numItems++;
 }
 
-TrolleyState get_state(){
-    return the_trolley_state;
+TrolleyState get_state()
+{
+    return state;
 }
