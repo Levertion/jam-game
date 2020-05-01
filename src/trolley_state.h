@@ -2,7 +2,7 @@
 
 typedef struct _item
 {
-    Shape shape;
+    Shape *shape;
     int posX;
     int posY;
 } Item;
