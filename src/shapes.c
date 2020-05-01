@@ -5,7 +5,9 @@ Shape AllShapes[3];
 
 int LoadShapes()
 {
+    Texture2D longShapeTexture = LoadTexture("assets/LongShape.png");
     Texture2D shortShapeTexture = LoadTexture("assets/ShortShape.png");
+    Texture2D dogShapeTexture = LoadTexture("assets/DogShape.png");
 
 
     Shape longshape = {
@@ -19,7 +21,7 @@ int LoadShapes()
         {0,0,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,0}
         },
-        NULL
+        longShapeTexture
     };
 
     Shape shortshape = {
@@ -33,7 +35,7 @@ int LoadShapes()
         {0,0,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,0}
         },
-        NULL
+        shortShapeTexture
     };
 
     Shape dogshape = {
@@ -47,7 +49,7 @@ int LoadShapes()
         {1,1,0,0,1,1,0,0},
         {1,1,0,0,1,1,0,0}
         },
-        NULL
+        dogShapeTexture
     };
 
     AllShapes[0] = longshape;
