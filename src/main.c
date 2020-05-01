@@ -1,5 +1,7 @@
 #include "draw_trolley.h"
 #include "raylib.h"
+#include "leftside_logic.h"
+#include "leftside_graphics.h"
 
 #define SCREEN_WIDTH (1600)
 #define SCREEN_HEIGHT (900)
@@ -28,12 +30,24 @@ int main(void)
         // Draw
         //----------------------------------------------------------------------------------
         BeginDrawing();
+        //left side
+        BeginScissorMode(0,0,LEFT_WIDTH,SCREEN_HEIGHT);
+        
+        draw_leftside();
+
+        EndScissorMode();
+
+        //right side
+        BeginScissorMode(LEFT_WIDTH,0,SCREEN_WIDTH-LEFT_WIDTH,SCREEN_HEIGHT);
 
         ClearBackground(RAYWHITE);
 
-        DrawRectangle(LEFT_WIDTH - (DIVIDOR_WIDTH / 2), 0, DIVIDOR_WIDTH, SCREEN_HEIGHT, BLACK);
+        DrawRectangle(LEFT_WIDTH, 0, DIVIDOR_WIDTH, SCREEN_HEIGHT, BLACK);
+
+        EndScissorMode();
 
         EndDrawing();
+
         //----------------------------------------------------------------------------------
     }
 
