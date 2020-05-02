@@ -5,27 +5,25 @@
 #include "raylib.h"
 #include "constants.h"
 
-Item MoveItem(Item item, enum Direction dir)
+void MoveItem(Item *item, enum Direction dir)
 {
-    Item result = item;
     switch (dir)
     {
-    case Up:
-        item.posY -= 1;
+    case DirUp:
+        item->posY -= 1;
         break;
-    case Down:
-        item.posY += 1;
+    case DirDown:
+        item->posY += 1;
         break;
-    case Left:
-        item.posX -= 1;
+    case DirLeft:
+        item->posX -= 1;
         break;
-    case Right:
-        item.posY += 1;
+    case DirRight:
+        item->posY += 1;
         break;
     default:
         break;
     }
-    return result;
 }
 
 struct Range
@@ -58,19 +56,19 @@ static struct IntVector2 ShapeCoordsUndoRotation(int x, int y, enum Rotation rot
     int j = 0;
     switch (rotation)
     {
-    case up:
+    case RotUp:
         i = x;
         j = y;
         break;
-    case down:
+    case RotDown:
         i = GRID_ITEM_MAX - x;
         j = GRID_ITEM_MAX - y;
         break;
-    case left:
+    case RotLeft:
         i = GRID_ITEM_MAX - y;
         j = x;
         break;
-    case right:
+    case RotRight:
         i = y;
         j = GRID_ITEM_MAX - x;
         break;
@@ -179,6 +177,33 @@ bool IsColliding(const TrolleyState *state)
 
 bool CanMoveItem(const TrolleyState *state, int itemIdx, enum Direction dir)
 {
-    Item moved = MoveItem(state->items[itemIdx], dir);
-    return !WouldCollide(state, moved, itemIdx) && !IsCollidingWithOutside(moved);
+    Item clone = state->items[itemIdx];
+    MoveItem(&clone, dir);
+    return !WouldCollide(state, clone, itemIdx) && !IsCollidingWithOutside(clone);
+}
+
+void TrolleyFrame(TrolleyState *state)
+{
+    // Dragging
+
+    /// Gravity
+    for (int i = 0; i < state->len; i++)
+    {
+        Item item = state->items[i];
+        if (item.gravityCooldown > 1)
+        {
+            item.gravityCooldown -= 1;
+        }
+        if (item.gravityCooldown == 0)
+        {
+            if (CanMoveItem(state, i, DirDown))
+            {
+                MoveItem(&state->items[i], DirDown);
+            }
+            else
+            {
+                item.gravityCooldown = -1;
+            }
+        }
+    }
 }

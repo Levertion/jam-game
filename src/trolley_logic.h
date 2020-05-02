@@ -6,13 +6,13 @@
 
 enum Direction
 {
-    Up,
-    Down,
-    Left,
-    Right
+    DirUp,
+    DirDown,
+    DirLeft,
+    DirRight
 };
 
-Item MoveItem(Item item, enum Direction dir);
+void MoveItem(Item *item, enum Direction dir);
 bool WouldCollide(const TrolleyState *state, Item item, int exclude);
 bool CanMoveItem(const TrolleyState *state, int itemIdx, enum Direction dir);
 bool IsColliding(const TrolleyState *state);

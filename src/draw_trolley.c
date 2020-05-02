@@ -9,8 +9,8 @@ void DrawTrolley(const TrolleyState *state)
     {
         Item this_item = state->items[i];
         Vector2 render_pos = {
-            TROLLEY_X + (float)this_item.posX * GRID_BLOCK_LENGTH + ((this_item.rotation == right || this_item.rotation == down) ? (this_item.shape->art.width) : 0),
-            TROLLEY_Y + (float)this_item.posY * GRID_BLOCK_LENGTH + ((this_item.rotation == down || this_item.rotation == left) ? (this_item.shape->art.height) : 0)};
+            TROLLEY_X + (float)this_item.posX * GRID_BLOCK_LENGTH + ((this_item.rotation == RotRight || this_item.rotation == RotDown) ? (this_item.shape->art.width) : 0),
+            TROLLEY_Y + (float)this_item.posY * GRID_BLOCK_LENGTH + ((this_item.rotation == RotDown || this_item.rotation == RotLeft) ? (this_item.shape->art.height) : 0)};
         float rotation_degrees = 90.f * (float)this_item.rotation;
         Color test = WHITE;
         // Set image
