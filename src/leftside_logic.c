@@ -9,7 +9,7 @@ static int deploy_cooldown = 0;
 static const int max_supply = 60;
 static int supply;
 static int active_items = MAX_BUFFER_SIZE_ITEMS;
-#define CONVEYOR_END (LS_LOGICAL_WIDTH)
+#define CONVEYOR_END (CONVEYOR_DRAW_OFFSET + conveyor_text.width)
 
 static void reroll_item(int i)
 {
@@ -37,7 +37,7 @@ static void reroll_item(int i)
             bound_right = bound_curr;
     }
 
-    items_conveyor.positions[i].x = (float)GetRandomValue(CONVEYOR_END - conveyor_text.width - bound_left * items_conveyor.shapes[i]->art.width / GRID_ITEM_LEN,
+    items_conveyor.positions[i].x = (float)GetRandomValue(CONVEYOR_DRAW_OFFSET - bound_left * items_conveyor.shapes[i]->art.width / GRID_ITEM_LEN,
                                                           CONVEYOR_END - items_conveyor.shapes[i]->art.width + bound_right * items_conveyor.shapes[i]->art.width / GRID_ITEM_LEN);
     items_conveyor.positions[i].y = (float)-items_conveyor.shapes[i]->art.height - deploy_cooldown * conveyor_velocity;
     deploy_cooldown += items_conveyor.shapes[i]->art.height / conveyor_velocity;

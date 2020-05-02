@@ -9,8 +9,10 @@ static Shape *yeetable = NULL;
 static int yeet_location = -240, yeet_rotation = 0, yeet_y = 200;
 static int yeet_velocity = 40, yeet_angular_velocity = 30;
 static int flash_cd = 0;
+static Texture2D main_texture;
 void load_leftside_textures()
 {
+    main_texture = LoadTexture("assets/ConveyerMainImage.png");
     conveyor_text = LoadTexture("assets/ConveyerPart.png");
 }
 void yeet_shape(Shape *shape)
@@ -22,10 +24,12 @@ void yeet_shape(Shape *shape)
 void draw_leftside()
 {
     ClearBackground(GRAY);
+    //main image
+    DrawTexture(main_texture, 0, 0, WHITE);
     //draw conveyor
     for (int i = 0; i * conveyor_text.height + conveyor_offset < SCREEN_HEIGHT; i++)
     {
-        DrawTexture(conveyor_text, LEFT_WIDTH - conveyor_text.width, i * conveyor_text.height + conveyor_offset, WHITE);
+        DrawTexture(conveyor_text, CONVEYOR_DRAW_OFFSET, i * conveyor_text.height + conveyor_offset, WHITE);
     }
 
     const Vector2 supply_pos = {10, 10};
