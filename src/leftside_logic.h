@@ -32,4 +32,5 @@ HoldItem current_hold_item_R;
 RingBufferItems items_conveyor;
 void leftside_init();
 void leftside_logic();
+float supply_fraction();
 #endif
