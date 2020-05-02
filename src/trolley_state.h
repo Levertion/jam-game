@@ -25,6 +25,10 @@ typedef struct _trolleyState
     Item *items;
     int len;
     int capacity;
+
+    int draggedX;
+    int draggedY;
+    int draggedItem;
 } TrolleyState;
 
 TrolleyState DefaultState();

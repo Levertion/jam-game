@@ -19,7 +19,7 @@ void MoveItem(Item *item, enum Direction dir)
         item->posX -= 1;
         break;
     case DirRight:
-        item->posY += 1;
+        item->posX += 1;
         break;
     default:
         break;
@@ -186,9 +186,93 @@ bool CanMoveItem(const TrolleyState *state, int itemIdx, enum Direction dir)
     return !WouldCollide(state, clone, itemIdx) && !IsCollidingWithOutside(clone, -BLOCKS_ABOVE_TROLLEY);
 }
 
+static int TryMoveN(TrolleyState *state, int itemIdx, int *amount, enum Direction posDir, enum Direction negDir)
+{
+    bool neg = false;
+    enum Direction dir = posDir;
+    if (amount < 0)
+    {
+        *amount = -*amount;
+        dir = negDir;
+        neg = true;
+    }
+    for (int i = 0; i < *amount; i++)
+    {
+        if (CanMoveItem(state, itemIdx, dir))
+        {
+            MoveItem(&state->items[itemIdx], dir);
+        }
+        else
+        {
+            *amount -= i;
+            if (neg)
+            {
+                *amount = -*amount;
+            }
+            return i;
+        }
+    }
+    *amount = 0;
+    return 0;
+}
+
 void TrolleyFrame(TrolleyState *state)
 {
-    // Dragging
+    bool clicking = IsMouseButtonDown(MOUSE_LEFT_BUTTON);
+    if (clicking || state->draggedItem != -1)
+    {
+        // Dragging
+        Vector2 mouse = GetMousePosition();
+        int mouseX = (int)mouse.x;
+        int mouseY = (int)mouse.y;
+        int mouseBlockX = (mouseX - TROLLEY_X) / GRID_BLOCK_LENGTH;
+        int mouseBlockY = (mouseY - TROLLEY_Y) / GRID_BLOCK_LENGTH;
+        if (state->draggedItem != -1)
+        {
+            int draggedX = state->draggedX;
+            int draggedY = state->draggedY;
+            int horizontal = mouseBlockX - draggedX;
+            int vertical = mouseBlockY - draggedY;
+            int moved = 0;
+            do
+            {
+                moved = 0;
+                moved += TryMoveN(state, state->draggedItem, &vertical, DirDown, DirUp);
+                moved += TryMoveN(state, state->draggedItem, &horizontal, DirRight, DirLeft);
+            } while (moved != 0);
+            state->draggedX = mouseBlockX;
+            state->draggedY = mouseBlockY;
+            // Try moving
+            if (!clicking || horizontal > 0 || vertical > 0)
+            {
+                state->items[state->draggedItem].gravityCooldown = GRAVITY_FRAMES;
+                state->draggedX = -1;
+                state->draggedY = -1;
+                state->draggedItem = -1;
+            }
+        }
+        else if (clicking)
+        {
+            for (int i = 0; i < state->len; i++)
+            {
+                Item item = state->items[i];
+                int xOffset = mouseBlockX - item.posX;
+                int yOffset = mouseBlockY - item.posY;
+                if (xOffset >= 0 && xOffset < GRID_ITEM_LEN && yOffset >= 0 && yOffset < GRID_ITEM_LEN)
+                {
+                    struct IntVector2 coords = ShapeCoordsUndoRotation(xOffset, yOffset, item.rotation);
+                    if (item.shape->grid[coords.i][coords.j])
+                    {
+                        state->draggedX = mouseBlockX;
+                        state->draggedY = mouseBlockY;
+                        state->draggedItem = i;
+                        state->items[i].gravityCooldown = -1;
+                        break;
+                    }
+                }
+            }
+        }
+    }
 
     /// Gravity
     for (int i = 0; i < state->len; i++)

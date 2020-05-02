@@ -8,7 +8,7 @@
 
 TrolleyState DefaultState()
 {
-    return (TrolleyState){.items = NULL, .capacity = 0, .len = 0};
+    return (TrolleyState){.items = NULL, .capacity = 0, .len = 0, .draggedX = -1, .draggedY = -1, .draggedItem = -1};
 }
 
 void AddItem(TrolleyState *state, Item item)
