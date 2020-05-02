@@ -5,10 +5,10 @@
 
 enum Rotation
 {
-    up,
-    right,
-    down,
-    left
+    RotUp,
+    RotRight,
+    RotDown,
+    RotLeft
 };
 
 typedef struct _item
@@ -16,6 +16,7 @@ typedef struct _item
     Shape *shape;
     int posX;
     int posY;
+    int gravityCooldown;
     enum Rotation rotation;
 } Item;
 
