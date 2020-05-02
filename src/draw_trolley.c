@@ -30,4 +30,16 @@ void DrawTrolleyGrid()
                                GRID_BLOCK_LENGTH, GRID_BLOCK_LENGTH, BLACK);
         }
     }
+
+    //Draw grid for draggable area above trolley 
+    for (int i = -BLOCKS_FROM_LEFT_TO_TROLLEY; i < BLOCKS_FROM_TROLLEY_TO_RIGHT; i++)
+    {
+        for (int j = -BLOCKS_ABOVE_TROLLEY; j < 0; j++)
+        {
+            DrawRectangleLines(TROLLEY_X + i * GRID_BLOCK_LENGTH,
+            TROLLEY_Y + j * GRID_BLOCK_LENGTH, GRID_BLOCK_LENGTH, GRID_BLOCK_LENGTH, GRAY);
+        }
+        
+    }
+    
 }
