@@ -28,9 +28,8 @@ int main(void)
 
     LoadShapes();
     load_hands();
-
     leftside_init();
-
+    load_leftside_textures();
     int points = 0;
     char points_text[POINTS_TEXT_SIZE];
     TrolleyState trolley = DefaultState();

@@ -4,14 +4,41 @@
 #include "leftside_graphics.h"
 #include <stddef.h>
 static const int conveyor_velocity = 5;
+int conveyor_offset = 0;
 static int deploy_cooldown = 0;
-static const int max_supply = 30;
+static const int max_supply = 60;
 static int supply;
 static int active_items = MAX_BUFFER_SIZE_ITEMS;
+#define CONVEYOR_END (LS_LOGICAL_WIDTH)
+
 static void reroll_item(int i)
 {
     items_conveyor.shapes[i] = GetRandomShape();
-    items_conveyor.positions[i].x = (float)GetRandomValue(0, LS_LOGICAL_WIDTH - items_conveyor.shapes[i]->art.width);
+    //find bounds (in grid blocks)
+    int bound_left = GRID_ITEM_LEN, bound_right = GRID_ITEM_LEN, bound_curr;
+    for (int j = 0; j < GRID_ITEM_LEN; j++)
+    {
+        bound_curr = 0;
+        for (int k = 0; k < GRID_ITEM_LEN && items_conveyor.shapes[i]->grid[j][k] != 1; k++)
+        {
+            bound_curr++;
+        }
+        if (bound_curr < bound_left)
+            bound_left = bound_curr;
+    }
+    for (int j = 0; j < GRID_ITEM_LEN; j++)
+    {
+        bound_curr = 0;
+        for (int k = GRID_ITEM_LEN - 1; k > 0 && items_conveyor.shapes[i]->grid[j][k] != 1; k--)
+        {
+            bound_curr++;
+        }
+        if (bound_curr < bound_right)
+            bound_right = bound_curr;
+    }
+
+    items_conveyor.positions[i].x = (float)GetRandomValue(CONVEYOR_END - conveyor_text.width - bound_left * items_conveyor.shapes[i]->art.width / GRID_ITEM_LEN,
+                                                          CONVEYOR_END - items_conveyor.shapes[i]->art.width + bound_right * items_conveyor.shapes[i]->art.width / GRID_ITEM_LEN);
     items_conveyor.positions[i].y = (float)-items_conveyor.shapes[i]->art.height - deploy_cooldown * conveyor_velocity;
     deploy_cooldown += items_conveyor.shapes[i]->art.height / conveyor_velocity;
     items_conveyor.active[i] = 1;
@@ -19,6 +46,10 @@ static void reroll_item(int i)
 float supply_fraction()
 {
     return ((float)supply / max_supply);
+}
+bool is_time_up()
+{
+    return (active_items == 0);
 }
 void leftside_init()
 {
@@ -72,8 +103,8 @@ void leftside_logic()
         //mouse in bounding box
         if (items_conveyor.active[RING_INDEX_RAW(items_conveyor, i)] && (IsMouseButtonPressed(MOUSE_RIGHT_BUTTON) || IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) && GetMouseX() >= RING_INDEX_POS(items_conveyor, i).x && GetMouseX() <= RING_INDEX_POS(items_conveyor, i).x + RING_INDEX_IDS(items_conveyor, i)->art.width && GetMouseY() >= RING_INDEX_POS(items_conveyor, i).y && GetMouseY() <= RING_INDEX_POS(items_conveyor, i).y + RING_INDEX_IDS(items_conveyor, i)->art.height)
         {
-            mouse_block_x = (int)(GetMouseX() - RING_INDEX_POS(items_conveyor, i).x) / (RING_INDEX_IDS(items_conveyor, i)->art.width / 8);
-            mouse_block_y = (int)(GetMouseY() - RING_INDEX_POS(items_conveyor, i).y) / (RING_INDEX_IDS(items_conveyor, i)->art.height / 8);
+            mouse_block_x = (int)(GetMouseX() - RING_INDEX_POS(items_conveyor, i).x) / (RING_INDEX_IDS(items_conveyor, i)->art.width / GRID_ITEM_LEN);
+            mouse_block_y = (int)(GetMouseY() - RING_INDEX_POS(items_conveyor, i).y) / (RING_INDEX_IDS(items_conveyor, i)->art.height / GRID_ITEM_LEN);
             if (RING_INDEX_IDS(items_conveyor, i)->grid[mouse_block_y][mouse_block_x] == 1)
             {
                 if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
@@ -94,8 +125,17 @@ void leftside_logic()
         }
     }
     if (active_items > 0)
+    {
+        //move items
         for (int i = 0; i < items_conveyor.length; i++)
         {
             RING_INDEX_POS(items_conveyor, i).y += conveyor_velocity;
         }
+        //move conveyor
+        conveyor_offset += conveyor_velocity;
+        if (conveyor_offset >= 0)
+        {
+            conveyor_offset -= conveyor_text.height;
+        }
+    }
 }
