@@ -190,7 +190,7 @@ static int TryMoveN(TrolleyState *state, int itemIdx, int *amount, enum Directio
 {
     bool neg = false;
     enum Direction dir = posDir;
-    if (amount < 0)
+    if (*amount < 0)
     {
         *amount = -*amount;
         dir = negDir;
