@@ -28,9 +28,10 @@ typedef struct
 
 HoldItem current_hold_item_L;
 HoldItem current_hold_item_R;
-
+int conveyor_offset;
 RingBufferItems items_conveyor;
 void leftside_init();
 void leftside_logic();
 float supply_fraction();
+bool is_time_up();
 #endif
