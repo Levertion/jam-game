@@ -189,21 +189,17 @@ void TrolleyFrame(TrolleyState *state)
     /// Gravity
     for (int i = 0; i < state->len; i++)
     {
-        Item item = state->items[i];
-        if (item.gravityCooldown >= 1)
+        Item *item = &state->items[i];
+        if (item->gravityCooldown >= 1)
         {
-            item.gravityCooldown -= 1;
+            item->gravityCooldown -= 1;
         }
-        if (item.gravityCooldown == 0)
+        if (item->gravityCooldown == 0)
         {
             if (CanMoveItem(state, i, DirDown))
             {
-                MoveItem(&state->items[i], DirDown);
-                item.gravityCooldown = GRAVITY_FRAMES;
-            }
-            else
-            {
-                item.gravityCooldown = -1;
+                MoveItem(item, DirDown);
+                item->gravityCooldown = GRAVITY_FRAMES;
             }
         }
     }

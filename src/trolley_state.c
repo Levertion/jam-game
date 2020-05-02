@@ -36,7 +36,8 @@ void AddRandomItems(TrolleyState *state)
                            .shape = GetRandomShape(),
                            .posX = GetRandomValue(-5, TROLLEY_WIDTH - 5),
                            .posY = GetRandomValue(-5, TROLLEY_HEIGHT - 5),
-                           .rotation = GetRandomValue(0, 3)});
+                           .rotation = GetRandomValue(0, 3),
+                           .gravityCooldown = GRAVITY_FRAMES});
     }
 }
 
