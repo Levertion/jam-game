@@ -1,7 +1,7 @@
 #include "shapes.h"
 #include <stddef.h>
 
-#define NUMBER_OF_SHAPES 10
+#define NUMBER_OF_SHAPES 12
 static Shape AllShapes[NUMBER_OF_SHAPES];
 
 int LoadShapes()
@@ -16,6 +16,8 @@ int LoadShapes()
     Texture2D baguetteShapeTexture = LoadTexture("assets/BaguetteShape.png");
     Texture2D loafShapeTexture = LoadTexture("assets/LoafShape.png");
     Texture2D potatoShapeTexture = LoadTexture("assets/PotatoShape.png");
+    Texture2D tomatoShapeTexture = LoadTexture("assets/TomatoShape.png");
+    Texture2D juiceShapeTexture = LoadTexture("assets/JuiceShape.png");
 
     Shape longshape = {
         {{0, 0, 0, 0, 0, 0, 0, 0},
@@ -98,8 +100,8 @@ int LoadShapes()
         {{0, 0, 0, 0, 0, 0, 0, 0},
          {0, 0, 0, 0, 0, 0, 0, 0},
          {0, 0, 0, 0, 0, 0, 0, 0},
-         {0, 0, 0, 0, 0, 0, 0, 0},
          {0, 1, 1, 1, 1, 1, 1, 0},
+         {0, 0, 0, 0, 0, 0, 0, 0},
          {0, 0, 0, 0, 0, 0, 0, 0},
          {0, 0, 0, 0, 0, 0, 0, 0},
          {0, 0, 0, 0, 0, 0, 0, 0}},
@@ -127,6 +129,28 @@ int LoadShapes()
          {0, 0, 0, 0, 0, 0, 0, 0}},
         potatoShapeTexture};
 
+    Shape tomatoshape = {
+        {{0, 0, 0, 0, 0, 0, 0, 0},
+         {0, 0, 0, 0, 0, 0, 0, 0},
+         {0, 0, 0, 0, 0, 0, 0, 0},
+         {0, 0, 0, 1, 0, 0, 0, 0},
+         {0, 0, 0, 0, 0, 0, 0, 0},
+         {0, 0, 0, 0, 0, 0, 0, 0},
+         {0, 0, 0, 0, 0, 0, 0, 0},
+         {0, 0, 0, 0, 0, 0, 0, 0}},
+        tomatoShapeTexture};
+
+    Shape juiceshape = {
+        {{0, 0, 0, 0, 0, 0, 0, 0},
+         {0, 0, 0, 0, 0, 0, 0, 0},
+         {0, 0, 0, 1, 1, 0, 0, 0},
+         {0, 0, 0, 1, 1, 0, 0, 0},
+         {0, 0, 0, 1, 1, 0, 0, 0},
+         {0, 0, 0, 0, 0, 0, 0, 0},
+         {0, 0, 0, 0, 0, 0, 0, 0},
+         {0, 0, 0, 0, 0, 0, 0, 0}},
+        juiceShapeTexture};
+
     AllShapes[0] = longshape;
     AllShapes[1] = shortshape;
     AllShapes[2] = dogshape;
@@ -137,6 +161,8 @@ int LoadShapes()
     AllShapes[7] = baguetteshape;
     AllShapes[8] = loafshape;
     AllShapes[9] = potatoshape;
+    AllShapes[10] = tomatoshape;
+    AllShapes[11] = juiceshape;
     return 1;
 }
 
