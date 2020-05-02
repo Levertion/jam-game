@@ -97,8 +97,8 @@ static bool IsCollidingWithOutside(Item item)
                     result = true;
                     // Debug box to show where collisioned happened
                     Vector2 render_pos = {
-                        889 + ((float)gridX) * GRID_BLOCK_LENGTH + 10,
-                        360 + ((float)gridY) * GRID_BLOCK_LENGTH + 10};
+                        TROLLEY_X + ((float)gridX) * GRID_BLOCK_LENGTH + 10,
+                        TROLLEY_Y + ((float)gridY) * GRID_BLOCK_LENGTH + 10};
                     Color c = BLUE;
                     c.a = 200;
                     DrawRectangleV(render_pos, (Vector2){10, 10}, c);
@@ -131,8 +131,8 @@ static bool ItemsCollide(Item item, Item item2)
 
                 // Debug box to show where collisioned happened
                 Vector2 render_pos = {
-                    889 + ((float)item.posX + x) * GRID_BLOCK_LENGTH + 10,
-                    360 + ((float)item.posY + y) * GRID_BLOCK_LENGTH + 10};
+                    TROLLEY_X + ((float)item.posX + x) * GRID_BLOCK_LENGTH + 10,
+                    TROLLEY_Y + ((float)item.posY + y) * GRID_BLOCK_LENGTH + 10};
                 Color c = RED;
                 c.a = 200;
                 DrawRectangleV(render_pos, (Vector2){10, 10}, c);
