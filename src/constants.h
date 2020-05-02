@@ -15,8 +15,6 @@
 
 #define TROLLEY_X (700)
 #define TROLLEY_Y (440)
-#define BLOCKS_FROM_LEFT_TO_TROLLEY (0)
-#define BLOCKS_FROM_TROLLEY_TO_RIGHT (25)
 #define BLOCKS_ABOVE_TROLLEY (8)
 
 #endif

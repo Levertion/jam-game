@@ -31,7 +31,6 @@ int main(void)
     leftside_init();
     load_leftside_textures();
     int points = 0;
-    char points_text[POINTS_TEXT_SIZE];
     TrolleyState trolley = DefaultState();
 
     AddRandomItems(&trolley);
@@ -78,7 +77,7 @@ int main(void)
 
         DrawRectangle(LEFT_WIDTH, 0, DIVIDOR_WIDTH, SCREEN_HEIGHT, BLACK);
 
-        DrawText(itoa(points, &points_text, 10), 1500, 800, 20, DARKGREEN);
+        DrawText(TextFormat("Points: %d", points), 1500, 800, 20, DARKGREEN);
 
         EndScissorMode();
 
