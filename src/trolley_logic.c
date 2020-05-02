@@ -78,7 +78,7 @@ static struct IntVector2 ShapeCoordsUndoRotation(int x, int y, enum Rotation rot
     return (struct IntVector2){.i = i, .j = j};
 }
 
-static bool IsCollidingWithOutside(Item item)
+static bool IsCollidingWithOutside(Item item, int minHeight)
 {
     bool result = false;
     for (int y = 0; y < GRID_ITEM_LEN; y++)
@@ -87,7 +87,7 @@ static bool IsCollidingWithOutside(Item item)
         {
             int gridX = x + item.posX;
             int gridY = y + item.posY;
-            if (gridX < 0 || gridY < 0 || gridX >= TROLLEY_WIDTH || gridY >= TROLLEY_HEIGHT)
+            if (gridX < 0 || gridY < minHeight || gridX >= TROLLEY_WIDTH || gridY >= TROLLEY_HEIGHT)
             {
                 struct IntVector2 res = ShapeCoordsUndoRotation(x, y, item.rotation);
                 if (item.shape->grid[res.j][res.i])
@@ -167,7 +167,7 @@ bool IsColliding(const TrolleyState *state)
             result = true;
         }
         // Don't short circuit for debug output
-        if (IsCollidingWithOutside(state->items[i]))
+        if (IsCollidingWithOutside(state->items[i], -BLOCKS_ABOVE_TROLLEY))
         {
             result = true;
         }
@@ -179,7 +179,7 @@ bool CanMoveItem(const TrolleyState *state, int itemIdx, enum Direction dir)
 {
     Item clone = state->items[itemIdx];
     MoveItem(&clone, dir);
-    return !WouldCollide(state, clone, itemIdx) && !IsCollidingWithOutside(clone);
+    return !WouldCollide(state, clone, itemIdx) && !IsCollidingWithOutside(clone, -BLOCKS_ABOVE_TROLLEY);
 }
 
 void TrolleyFrame(TrolleyState *state)
