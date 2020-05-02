@@ -5,7 +5,8 @@
 #include "leftside_graphics.h"
 #include "trolley_logic.h"
 #include "draw_cache.h"
-
+#include "audio.h"
+#include "timer.h"
 #include <stdlib.h>
 
 #define SCREEN_WIDTH (1600)
@@ -23,15 +24,14 @@ int main(void)
     // Initialization
     //--------------------------------------------------------------------------------------
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "PackShoppingGame");
-
+    InitAudioDevice();
     SetTargetFPS(60); // Set our game to run at 60 frames-per-second
-
+    init_audio();
     LoadShapes();
     load_hands();
     leftside_init();
     load_leftside_textures();
     int points = 0;
-    char points_text[POINTS_TEXT_SIZE];
     TrolleyState trolley = DefaultState();
 
     AddRandomItems(&trolley);
@@ -43,6 +43,7 @@ int main(void)
         //----------------------------------------------------------------------------------
         // TODO: Update your variables here
         //----------------------------------------------------------------------------------
+        update_audio();
         leftside_logic();
         if (IsKeyPressed(KEY_T))
         {
@@ -51,8 +52,8 @@ int main(void)
         }
 
         points = CalculateAreaFilled(&trolley);
-
-        TrolleyFrame(&trolley);
+        if (!is_fun_no_longer_allowed())
+            TrolleyFrame(&trolley);
         // Draw
         //----------------------------------------------------------------------------------
         BeginDrawing();
@@ -70,6 +71,11 @@ int main(void)
 
         draw_cache();
 
+        if (is_time_up())
+        {
+            draw_timer();
+        }
+
         DrawTrolleyGrid();
 
         DrawTrolley(&trolley);
@@ -77,8 +83,7 @@ int main(void)
 
         DrawRectangle(LEFT_WIDTH, 0, DIVIDOR_WIDTH, SCREEN_HEIGHT, BLACK);
 
-        DrawText(itoa(points, &points_text, 10), 1500, 800, 20, DARKGREEN);
-
+        DrawText(TextFormat("Points: %d", points), 1450, 800, 20, DARKGREEN);
         EndScissorMode();
 
         EndDrawing();
@@ -89,6 +94,8 @@ int main(void)
     // De-Initialization
     //--------------------------------------------------------------------------------------
     UnLoadShapes();
+    unload_audio();
+    CloseAudioDevice();
     CloseWindow(); // Close window and OpenGL context
 
     return 0;

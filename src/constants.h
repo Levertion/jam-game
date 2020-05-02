@@ -11,12 +11,10 @@
 #define GRID_ITEM_LEN (8)
 #define GRAVITY_FRAMES (5)
 #define TROLLEY_WIDTH (25)
-#define TROLLEY_HEIGHT (12)
+#define TROLLEY_HEIGHT (11)
 
 #define TROLLEY_X (700)
 #define TROLLEY_Y (440)
-#define BLOCKS_FROM_LEFT_TO_TROLLEY (0)
-#define BLOCKS_FROM_TROLLEY_TO_RIGHT (25)
 #define BLOCKS_ABOVE_TROLLEY (8)
 
 #endif

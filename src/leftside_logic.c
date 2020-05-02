@@ -1,6 +1,7 @@
 #include "leftside_logic.h"
 #include "raylib.h"
 #include "shapes.h"
+#include "timer.h"
 #include "leftside_graphics.h"
 #include <stddef.h>
 static const int conveyor_velocity = 5;
@@ -110,14 +111,36 @@ void leftside_logic()
                 if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
                 {
                     if (current_hold_item_L.shape != NULL)
-                        yeet_shape(current_hold_item_L.shape);
-                    current_hold_item_L.shape = RING_INDEX_IDS(items_conveyor, i);
+                    {
+                        if (current_hold_item_R.shape == NULL)
+                        {
+                            current_hold_item_R.shape = RING_INDEX_IDS(items_conveyor, i);
+                        }
+                        else
+                        {
+                            yeet_shape(current_hold_item_L.shape);
+                            current_hold_item_L.shape = RING_INDEX_IDS(items_conveyor, i);
+                        }
+                    }
+                    else
+                        current_hold_item_L.shape = RING_INDEX_IDS(items_conveyor, i);
                 }
                 else
                 {
                     if (current_hold_item_R.shape != NULL)
-                        yeet_shape(current_hold_item_R.shape);
-                    current_hold_item_R.shape = RING_INDEX_IDS(items_conveyor, i);
+                    {
+                        if (current_hold_item_L.shape == NULL)
+                        {
+                            current_hold_item_L.shape = RING_INDEX_IDS(items_conveyor, i);
+                        }
+                        else
+                        {
+                            yeet_shape(current_hold_item_R.shape);
+                            current_hold_item_R.shape = RING_INDEX_IDS(items_conveyor, i);
+                        }
+                    }
+                    else
+                        current_hold_item_R.shape = RING_INDEX_IDS(items_conveyor, i);
                 }
                 items_conveyor.active[RING_INDEX_RAW(items_conveyor, i)] = 0;
                 break;
@@ -137,5 +160,9 @@ void leftside_logic()
         {
             conveyor_offset -= conveyor_text.height;
         }
+    }
+    else
+    {
+        start_timer();
     }
 }
