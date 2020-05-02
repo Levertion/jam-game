@@ -52,8 +52,8 @@ int main(void)
         }
 
         points = CalculateAreaFilled(&trolley);
-
-        TrolleyFrame(&trolley);
+        if (!is_fun_no_longer_allowed())
+            TrolleyFrame(&trolley);
         // Draw
         //----------------------------------------------------------------------------------
         BeginDrawing();
@@ -84,7 +84,6 @@ int main(void)
         DrawRectangle(LEFT_WIDTH, 0, DIVIDOR_WIDTH, SCREEN_HEIGHT, BLACK);
 
         DrawText(TextFormat("Points: %d", points), 1450, 800, 20, DARKGREEN);
-
         EndScissorMode();
 
         EndDrawing();
