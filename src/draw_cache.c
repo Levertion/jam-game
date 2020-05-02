@@ -2,7 +2,7 @@
 #include "leftside_logic.h"
 #include "constants.h"
 #include <stddef.h>
-static const Vector2 loc_L = {10 + LEFT_WIDTH, 10}, loc_R = {360 + LEFT_WIDTH, 10};
+static const Vector2 loc_L = {10 + LEFT_WIDTH, 10}, loc_R = {SCREEN_WIDTH - 360, 10};
 
 void draw_cache()
 {
