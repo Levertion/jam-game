@@ -114,10 +114,10 @@ static bool ItemsCollide(Item item, Item item2)
     bool collided = false;
     // TODO?: Change to use bitshifts
     int xOffset = item2.posX - item.posX;
-    struct Range xOverlap = Overlap(0, GRID_ITEM_LEN, xOffset, GRID_ITEM_MAX);
+    struct Range xOverlap = Overlap(0, GRID_ITEM_LEN, xOffset, GRID_ITEM_LEN);
 
     int yOffset = item2.posY - item.posY;
-    struct Range yOverlap = Overlap(0, GRID_ITEM_MAX, yOffset, GRID_ITEM_MAX);
+    struct Range yOverlap = Overlap(0, GRID_ITEM_LEN, yOffset, GRID_ITEM_LEN);
 
     for (int x = xOverlap.start; x < xOverlap.end; x++)
     {
@@ -180,5 +180,5 @@ bool IsColliding(const TrolleyState *state)
 bool CanMoveItem(const TrolleyState *state, int itemIdx, enum Direction dir)
 {
     Item moved = MoveItem(state->items[itemIdx], dir);
-    return !WouldCollide(state, moved, itemIdx);
+    return !WouldCollide(state, moved, itemIdx) && !IsCollidingWithOutside(moved);
 }
