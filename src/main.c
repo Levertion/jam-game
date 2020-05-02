@@ -83,7 +83,7 @@ int main(void)
 
         DrawRectangle(LEFT_WIDTH, 0, DIVIDOR_WIDTH, SCREEN_HEIGHT, BLACK);
 
-        DrawText(TextFormat("Points: %d", points), 1500, 800, 20, DARKGREEN);
+        DrawText(TextFormat("Points: %d", points), 1450, 800, 20, DARKGREEN);
 
         EndScissorMode();
 
