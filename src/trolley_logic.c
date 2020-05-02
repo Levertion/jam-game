@@ -219,6 +219,7 @@ static int TryMoveN(TrolleyState *state, int itemIdx, int *amount, enum Directio
 void TrolleyFrame(TrolleyState *state)
 {
     bool clicking = IsMouseButtonDown(MOUSE_LEFT_BUTTON);
+    bool rotating = IsKeyPressed(KEY_R);
     if (clicking || state->draggedItem != -1)
     {
         // Dragging
@@ -242,6 +243,36 @@ void TrolleyFrame(TrolleyState *state)
             } while (moved != 0);
             state->draggedX = mouseBlockX;
             state->draggedY = mouseBlockY;
+
+            //ROTATE CHECK
+            if (rotating)
+            {
+                enum Rotation NewRotation = (state->items[state->draggedItem].rotation + 1) % 4;
+                /*
+                Item newItem = (Item)
+                {
+                    .shape = state->items[state->draggedItem].shape,
+                    .posX = state->items[state->draggedItem].posX,
+                    .posY = state->items[state->draggedItem].posY,
+                    .gravityCooldown = state->items[state->draggedItem].gravityCooldown,
+                    .rotation = NewRotation,
+                };
+                */
+                Item newItem = state->items[state->draggedItem];
+                newItem.rotation = NewRotation;
+
+                if (WouldCollide(state, newItem, state->draggedItem))
+                {
+                    //do something
+                }
+                else
+                {
+                    state->items[state->draggedItem].rotation = NewRotation;
+                }
+            }
+
+            //ROTATE CHECK END
+
             // Try moving
             if (!clicking || horizontal > 0 || vertical > 0)
             {

@@ -45,7 +45,7 @@ int main(void)
         // TODO: Update your variables here
         //----------------------------------------------------------------------------------
         leftside_logic();
-        if (IsKeyPressed(KEY_R))
+        if (IsKeyPressed(KEY_T))
         {
             DeleteAllItems(&trolley);
             AddRandomItems(&trolley);
