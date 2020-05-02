@@ -2,6 +2,7 @@
 #include "raylib.h"
 
 #include <stdlib.h>
+#include "trolley_logic.h"
 
 #define INITIAL_CAPACITY 4
 
@@ -30,14 +31,25 @@ void AddItem(TrolleyState *state, Item item)
 
 void AddRandomItems(TrolleyState *state)
 {
-    for (int i = 0; i < 4; i++)
+    int count = 0;
+    for (int i = 0; i < 20; i++)
     {
-        AddItem(state, (Item){
-                           .shape = GetRandomShape(),
-                           .posX = GetRandomValue(-5, TROLLEY_WIDTH - 5),
-                           .posY = GetRandomValue(-5, TROLLEY_HEIGHT - 5),
-                           .rotation = GetRandomValue(0, 3),
-                           .gravityCooldown = GRAVITY_FRAMES});
+        Item item;
+        do
+        {
+            if (count > 1000)
+            {
+                return;
+            }
+            item = (Item){
+                .shape = GetRandomShape(),
+                .posX = GetRandomValue(-5, TROLLEY_WIDTH - 5),
+                .posY = GetRandomValue(-BLOCKS_ABOVE_TROLLEY - 5, TROLLEY_HEIGHT - 5),
+                .rotation = GetRandomValue(0, 3),
+                .gravityCooldown = GRAVITY_FRAMES};
+            count++;
+        } while (WouldCollide(state, item, -1));
+        AddItem(state, item);
     }
 }
 

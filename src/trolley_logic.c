@@ -94,12 +94,12 @@ static bool IsCollidingWithOutside(Item item, int minHeight)
                 {
                     result = true;
                     // Debug box to show where collisioned happened
-                    Vector2 render_pos = {
-                        TROLLEY_X + ((float)gridX) * GRID_BLOCK_LENGTH + 10,
-                        TROLLEY_Y + ((float)gridY) * GRID_BLOCK_LENGTH + 10};
-                    Color c = BLUE;
-                    c.a = 200;
-                    DrawRectangleV(render_pos, (Vector2){10, 10}, c);
+                    // Vector2 render_pos = {
+                    //     TROLLEY_X + ((float)gridX) * GRID_BLOCK_LENGTH + 10,
+                    //     TROLLEY_Y + ((float)gridY) * GRID_BLOCK_LENGTH + 10};
+                    // Color c = BLUE;
+                    // c.a = 200;
+                    // DrawRectangleV(render_pos, (Vector2){10, 10}, c);
                 }
             }
         }
@@ -143,6 +143,10 @@ static bool ItemsCollide(Item item, Item item2)
 bool WouldCollide(const TrolleyState *state, Item item, int exclude)
 {
     bool result = false;
+    if (IsCollidingWithOutside(item, -BLOCKS_ABOVE_TROLLEY))
+    {
+        result = true;
+    }
     for (int i = 0; i < state->len; i++)
     {
         if (i != exclude)
