@@ -261,7 +261,7 @@ void TrolleyFrame(TrolleyState *state)
                 if (xOffset >= 0 && xOffset < GRID_ITEM_LEN && yOffset >= 0 && yOffset < GRID_ITEM_LEN)
                 {
                     struct IntVector2 coords = ShapeCoordsUndoRotation(xOffset, yOffset, item.rotation);
-                    if (item.shape->grid[coords.i][coords.j])
+                    if (item.shape->grid[coords.j][coords.i])
                     {
                         state->draggedX = mouseBlockX;
                         state->draggedY = mouseBlockY;
