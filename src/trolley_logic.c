@@ -231,7 +231,6 @@ void TrolleyFrame(TrolleyState *state)
 {
     bool clicking = IsMouseButtonDown(MOUSE_LEFT_BUTTON);
     bool rightclicking = IsMouseButtonDown(MOUSE_RIGHT_BUTTON);
-    bool rotating = IsKeyPressed(KEY_R);
     if (clicking || rightclicking || state->draggedItem != -1)
     {
         bool acted = false;
@@ -258,24 +257,40 @@ void TrolleyFrame(TrolleyState *state)
             state->draggedX = mouseBlockX;
             state->draggedY = mouseBlockY;
 
-            //ROTATE CHECK
-            if (rotating)
+            int rotationAmount = 0;
+            if (IsKeyPressed(KEY_R))
             {
-                enum Rotation NewRotation = (state->items[state->draggedItem].rotation + 1) % 4;
+                rotationAmount = 1;
+            }
+            else
+            {
+
+                int mouse = GetMouseWheelMove();
+                if (mouse > 0)
+                {
+                    rotationAmount = 1;
+                }
+                else if (mouse < 0)
+                {
+                    rotationAmount = -1;
+                }
+            }
+
+            if (rotationAmount != 0)
+            {
+                // Handle negatives by adding 4
+                enum Rotation NewRotation = (state->items[state->draggedItem].rotation + rotationAmount + 4) % 4;
                 Item newItem = state->items[state->draggedItem];
                 newItem.rotation = NewRotation;
-
                 if (WouldCollide(state, newItem, state->draggedItem))
                 {
-                    //do something
+                    // Inform the user that the rotation is forbidden
                 }
                 else
                 {
                     state->items[state->draggedItem].rotation = NewRotation;
                 }
             }
-
-            //ROTATE CHECK END
 
             // Try moving
             if (!clicking || horizontal > 0 || vertical > 0)
