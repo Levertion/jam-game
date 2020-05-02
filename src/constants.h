@@ -13,7 +13,7 @@
 #define TROLLEY_WIDTH (20)
 #define TROLLEY_HEIGHT (16)
 
-#define TROLLEY_X (889)
+#define TROLLEY_X (829)
 #define TROLLEY_Y (360)
 
 #endif
