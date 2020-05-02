@@ -5,7 +5,7 @@
 #include "leftside_graphics.h"
 #include "trolley_logic.h"
 #include "draw_cache.h"
-
+#include "audio.h"
 #include <stdlib.h>
 
 #define SCREEN_WIDTH (1600)
@@ -23,9 +23,9 @@ int main(void)
     // Initialization
     //--------------------------------------------------------------------------------------
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "PackShoppingGame");
-
+    InitAudioDevice();
     SetTargetFPS(60); // Set our game to run at 60 frames-per-second
-
+    init_audio();
     LoadShapes();
     load_hands();
     leftside_init();
@@ -43,6 +43,7 @@ int main(void)
         //----------------------------------------------------------------------------------
         // TODO: Update your variables here
         //----------------------------------------------------------------------------------
+        update_audio();
         leftside_logic();
         if (IsKeyPressed(KEY_T))
         {
@@ -89,6 +90,8 @@ int main(void)
     // De-Initialization
     //--------------------------------------------------------------------------------------
     UnLoadShapes();
+    unload_audio();
+    CloseAudioDevice();
     CloseWindow(); // Close window and OpenGL context
 
     return 0;
