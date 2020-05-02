@@ -5,8 +5,8 @@ Music conveyor_sound;
 void init_audio()
 {
     //Wave wave = LoadWave("assets/audio/conveyor/conveyorsoftermp344100.mp3");
-    conveyor_sound = LoadMusicStream("assets/audio/conveyor/conveyorsoftermp344100.mp3");
-    SetMusicVolume(conveyor_sound, .05f);
+    conveyor_sound = LoadMusicStream("assets/audio/conveyor/conveyorsofter-mp344100.mp3");
+    SetMusicVolume(conveyor_sound, .1f);
     PlayMusicStream(conveyor_sound);
     //UnloadWave(wave);
 }
@@ -18,11 +18,11 @@ void update_audio()
     }
     if (GetMouseX() < LEFT_WIDTH)
     {
-        SetMusicVolume(conveyor_sound, .25f);
+        SetMusicVolume(conveyor_sound, .15f);
     }
     else
     {
-        SetMusicVolume(conveyor_sound, .05f);
+        SetMusicVolume(conveyor_sound, .1f);
     }
 
     UpdateMusicStream(conveyor_sound);
