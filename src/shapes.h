@@ -2,10 +2,11 @@
 #define SHAPES___GUARD____H
 
 #include "raylib.h"
+#include "constants.h"
 
 typedef struct Shape
 {
-    int grid[8][8];
+    int grid[GRID_ITEM_LEN][GRID_ITEM_LEN];
     Texture2D art;
     // Details
 } Shape;

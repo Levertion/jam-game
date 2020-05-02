@@ -8,6 +8,7 @@
 #define LEFT_WIDTH (600)
 #define DIVIDOR_WIDTH (2)
 #define GRID_BLOCK_LENGTH (30)
+#define GRID_ITEM_LEN (8)
 #define TROLLEY_WIDTH (20)
 #define TROLLEY_HEIGHT (16)
 

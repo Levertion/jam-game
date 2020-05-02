@@ -34,8 +34,8 @@ void AddRandomItems(TrolleyState *state)
     {
         AddItem(state, (Item){
                            .shape = GetRandomShape(),
-                           .posX = GetRandomValue(0, 10),
-                           .posY = GetRandomValue(0, 10),
+                           .posX = GetRandomValue(-5, TROLLEY_WIDTH),
+                           .posY = GetRandomValue(-5, TROLLEY_HEIGHT),
                            .rotation = GetRandomValue(0, 3)});
     }
 }
