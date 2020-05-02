@@ -12,10 +12,10 @@ void DrawTrolley(const TrolleyState *state)
             TROLLEY_X + (float)this_item.posX * GRID_BLOCK_LENGTH + ((this_item.rotation == RotRight || this_item.rotation == RotDown) ? (this_item.shape->art.width) : 0),
             TROLLEY_Y + (float)this_item.posY * GRID_BLOCK_LENGTH + ((this_item.rotation == RotDown || this_item.rotation == RotLeft) ? (this_item.shape->art.height) : 0)};
         float rotation_degrees = 90.f * (float)this_item.rotation;
-        Color test = WHITE;
+        Color tint = WHITE;
         // Set image
-        test.a = 200;
-        DrawTextureEx(this_item.shape->art, render_pos, rotation_degrees, 1.0f, test);
+        // tint.a = 200;
+        DrawTextureEx(this_item.shape->art, render_pos, rotation_degrees, 1.0f, tint);
     }
 };
 
@@ -31,15 +31,13 @@ void DrawTrolleyGrid()
         }
     }
 
-    //Draw grid for draggable area above trolley 
+    //Draw grid for draggable area above trolley
     for (int i = -BLOCKS_FROM_LEFT_TO_TROLLEY; i < BLOCKS_FROM_TROLLEY_TO_RIGHT; i++)
     {
         for (int j = -BLOCKS_ABOVE_TROLLEY; j < 0; j++)
         {
             DrawRectangleLines(TROLLEY_X + i * GRID_BLOCK_LENGTH,
-            TROLLEY_Y + j * GRID_BLOCK_LENGTH, GRID_BLOCK_LENGTH, GRID_BLOCK_LENGTH, GRAY);
+                               TROLLEY_Y + j * GRID_BLOCK_LENGTH, GRID_BLOCK_LENGTH, GRID_BLOCK_LENGTH, GRAY);
         }
-        
     }
-    
 }
