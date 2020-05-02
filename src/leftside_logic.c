@@ -5,7 +5,9 @@
 #include <stddef.h>
 static const int conveyor_velocity = 5;
 static int deploy_cooldown = 0;
-
+static const int max_supply = 30;
+static int supply;
+static int active_items = MAX_BUFFER_SIZE_ITEMS;
 static void reroll_item(int i)
 {
     items_conveyor.shapes[i] = GetRandomShape();
@@ -14,9 +16,13 @@ static void reroll_item(int i)
     deploy_cooldown += items_conveyor.shapes[i]->art.height / conveyor_velocity;
     items_conveyor.active[i] = 1;
 }
-
+float supply_fraction()
+{
+    return ((float)supply / max_supply);
+}
 void leftside_init()
 {
+    supply = max_supply;
     items_conveyor.start = 0;
     items_conveyor.length = 0;
     current_hold_item_L.shape = NULL;
@@ -29,20 +35,26 @@ void leftside_logic()
     {
         deploy_cooldown--;
     }
-    else if (items_conveyor.length < MAX_BUFFER_SIZE_ITEMS)
+    else if (items_conveyor.length < MAX_BUFFER_SIZE_ITEMS && supply > 0)
     {
 
         reroll_item(items_conveyor.length);
-
+        supply--;
         items_conveyor.length++;
     }
 
     //cull out of bounds
-    while (RING_INDEX_POS(items_conveyor, 0).y > LS_LOGICAL_HEIGHT + RING_INDEX_IDS(items_conveyor, 0)->art.height)
+    while (RING_INDEX_POS(items_conveyor, 0).y > LS_LOGICAL_HEIGHT + RING_INDEX_IDS(items_conveyor, 0)->art.height && active_items > 0)
     {
-        //reroll image
-        reroll_item(RING_INDEX_RAW(items_conveyor, 0));
+        if (supply > 0)
+        {
+            //reroll image
+            reroll_item(RING_INDEX_RAW(items_conveyor, 0));
 
+            supply--;
+        }
+        else
+            active_items--;
         //shifts to next position
         items_conveyor.start++;
         if (items_conveyor.start == items_conveyor.length)
@@ -81,9 +93,9 @@ void leftside_logic()
             }
         }
     }
-
-    for (int i = 0; i < items_conveyor.length; i++)
-    {
-        RING_INDEX_POS(items_conveyor, i).y += conveyor_velocity;
-    }
+    if (active_items > 0)
+        for (int i = 0; i < items_conveyor.length; i++)
+        {
+            RING_INDEX_POS(items_conveyor, i).y += conveyor_velocity;
+        }
 }
