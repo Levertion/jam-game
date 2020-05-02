@@ -8,6 +8,7 @@ typedef struct Shape
 {
     int grid[GRID_ITEM_LEN][GRID_ITEM_LEN];
     Texture2D art;
+    int size;
     // Details
 } Shape;
 
