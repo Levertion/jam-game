@@ -292,3 +292,21 @@ void TrolleyFrame(TrolleyState *state)
         }
     }
 }
+
+int CalculateAreaFilled(TrolleyState *state)
+{
+    int area_filled = 0;
+
+    for (int i = 0; i < state->len; i++)
+    {
+        Item this_item = state->items[i];
+        if (IsCollidingWithOutside(this_item, 0))
+        {
+            continue;
+        }
+
+        area_filled += this_item.shape->size;
+    }
+
+    return area_filled;
+}

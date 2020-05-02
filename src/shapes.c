@@ -30,7 +30,8 @@ int LoadShapes()
          {0, 0, 0, 0, 0, 0, 0, 0},
          {0, 0, 0, 0, 0, 0, 0, 0},
          {0, 0, 0, 0, 0, 0, 0, 0}},
-        toiletPaperShapeTexture};
+        toiletPaperShapeTexture,
+    };
 
     Shape shortshape = {
         {{0, 0, 0, 0, 0, 0, 0, 0},
@@ -41,7 +42,8 @@ int LoadShapes()
          {0, 0, 0, 0, 0, 0, 0, 0},
          {0, 0, 0, 0, 0, 0, 0, 0},
          {0, 0, 0, 0, 0, 0, 0, 0}},
-        spoonShapeTexture};
+        spoonShapeTexture,
+    };
 
     Shape dogshape = {
         {{1, 1, 0, 0, 1, 1, 1, 1},
@@ -52,7 +54,8 @@ int LoadShapes()
          {1, 1, 1, 1, 1, 1, 0, 0},
          {1, 1, 0, 0, 1, 1, 0, 0},
          {1, 1, 0, 0, 1, 1, 0, 0}},
-        dogShapeTexture};
+        dogShapeTexture,
+    };
 
     Shape pizzashape = {
         {{0, 0, 0, 0, 0, 0, 0, 0},
@@ -63,7 +66,8 @@ int LoadShapes()
          {0, 1, 1, 1, 1, 1, 1, 0},
          {0, 0, 1, 1, 1, 1, 0, 0},
          {0, 0, 0, 0, 0, 0, 0, 0}},
-        pizzaShapeTexture};
+        pizzaShapeTexture,
+    };
 
     Shape canshape = {
         {{0, 0, 0, 0, 0, 0, 0, 0},
@@ -189,6 +193,27 @@ int LoadShapes()
     AllShapes[11] = juiceshape;
     AllShapes[12] = riceshape;
     AllShapes[13] = veggiesshape;
+
+    for (int i = 0; i < NUMBER_OF_SHAPES; i++)
+    {
+        int count = 0;
+        for (int j = 0; j < GRID_ITEM_LEN; j++)
+        {
+
+            Shape this_shape = AllShapes[i];
+
+            for (int k = 0; k < GRID_ITEM_LEN; k++)
+            {
+                if (this_shape.grid[j][k] == 1)
+                {
+                    count += 1;
+                }
+            }
+        }
+
+        AllShapes[i].size = count;
+    }
+
     return 1;
 }
 

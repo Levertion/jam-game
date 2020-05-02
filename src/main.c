@@ -6,10 +6,14 @@
 #include "trolley_logic.h"
 #include "draw_cache.h"
 
+#include <stdlib.h>
+
 #define SCREEN_WIDTH (1600)
 #define SCREEN_HEIGHT (900)
 #define LEFT_WIDTH (600)
 #define DIVIDOR_WIDTH (2)
+
+#define POINTS_TEXT_SIZE (10)
 
 // Change this depending on the path of your executable relative to the assets folder
 #define ASSET_PATH "assets/"
@@ -26,6 +30,9 @@ int main(void)
     load_hands();
 
     leftside_init();
+
+    int points = 0;
+    char points_text[POINTS_TEXT_SIZE];
     TrolleyState trolley = DefaultState();
 
     AddRandomItems(&trolley);
@@ -43,6 +50,9 @@ int main(void)
             DeleteAllItems(&trolley);
             AddRandomItems(&trolley);
         }
+
+        points = CalculateAreaFilled(&trolley);
+
         TrolleyFrame(&trolley);
         // Draw
         //----------------------------------------------------------------------------------
@@ -67,6 +77,8 @@ int main(void)
         IsColliding(&trolley);
 
         DrawRectangle(LEFT_WIDTH, 0, DIVIDOR_WIDTH, SCREEN_HEIGHT, BLACK);
+
+        DrawText(itoa(points, &points_text, 10), 1500, 800, 20, DARKGREEN);
 
         EndScissorMode();
 

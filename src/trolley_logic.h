@@ -18,4 +18,7 @@ bool CanMoveItem(const TrolleyState *state, int itemIdx, enum Direction dir);
 bool IsColliding(const TrolleyState *state);
 void TrolleyFrame(TrolleyState *state);
 
+//items that are half in the trolley will not add anyting to this number
+int CalculateAreaFilled(TrolleyState *state);
+
 #endif
