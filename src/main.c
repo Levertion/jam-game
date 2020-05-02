@@ -4,6 +4,7 @@
 #include "leftside_logic.h"
 #include "leftside_graphics.h"
 #include "trolley_logic.h"
+#include "draw_cache.h"
 
 #define SCREEN_WIDTH (1600)
 #define SCREEN_HEIGHT (900)
@@ -56,6 +57,8 @@ int main(void)
         BeginScissorMode(LEFT_WIDTH, 0, SCREEN_WIDTH - LEFT_WIDTH, SCREEN_HEIGHT);
 
         ClearBackground(RAYWHITE);
+
+        draw_cache();
 
         DrawTrolleyGrid();
 

@@ -4,6 +4,7 @@
 #include "shapes.h"
 #include <stddef.h>
 //#define DEBUG_L1
+//#define LEFTSIDE_HOLD_ITEMS
 static Shape *yeetable = NULL;
 static int yeet_location = -240, yeet_rotation = 0, yeet_y = 200;
 static int yeet_velocity = 20, yeet_angular_velocity = 15;
@@ -39,9 +40,11 @@ void draw_leftside()
                 yeet_location -= yeet_velocity;
             }
         }
+#ifdef LEFTSIDE_HOLD_ITEMS
         if (current_hold_item_L.shape != NULL)
         {
             DrawTexture(current_hold_item_L.shape->art, 0, 0, WHITE);
         }
+#endif
     }
 }
