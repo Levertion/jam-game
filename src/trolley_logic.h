@@ -16,5 +16,6 @@ void MoveItem(Item *item, enum Direction dir);
 bool WouldCollide(const TrolleyState *state, Item item, int exclude);
 bool CanMoveItem(const TrolleyState *state, int itemIdx, enum Direction dir);
 bool IsColliding(const TrolleyState *state);
+void TrolleyFrame(TrolleyState *state);
 
 #endif

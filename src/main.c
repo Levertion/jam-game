@@ -41,6 +41,7 @@ int main(void)
             DeleteAllItems(&trolley);
             AddRandomItems(&trolley);
         }
+        TrolleyFrame(&trolley);
         // Draw
         //----------------------------------------------------------------------------------
         BeginDrawing();

@@ -9,6 +9,7 @@
 #define DIVIDOR_WIDTH (2)
 #define GRID_BLOCK_LENGTH (30)
 #define GRID_ITEM_LEN (8)
+#define GRAVITY_FRAMES (10)
 #define TROLLEY_WIDTH (20)
 #define TROLLEY_HEIGHT (16)
 
