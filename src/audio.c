@@ -1,19 +1,19 @@
 #include "audio.h"
 #include "raylib.h"
-Sound conveyor_sound;
+Music conveyor_sound;
 void init_audio()
 {
-    Wave wave = LoadWave("assets/audio/conveyor/conveyormp344100.mp3");
-    conveyor_sound = LoadSoundFromWave(wave);
-    SetSoundVolume(conveyor_sound, .2f);
-    UnloadWave(wave);
+    //Wave wave = LoadWave("assets/audio/conveyor/conveyorsoftermp344100.mp3");
+    conveyor_sound = LoadMusicStream("assets/audio/conveyor/conveyorsoftermp344100.mp3");
+    SetMusicVolume(conveyor_sound, .2f);
+    PlayMusicStream(conveyor_sound);
+    //UnloadWave(wave);
 }
 void update_audio()
 {
-    if (!IsSoundPlaying(conveyor_sound))
-        PlaySound(conveyor_sound);
+    UpdateMusicStream(conveyor_sound);
 }
 void unload_audio()
 {
-    UnloadSound(conveyor_sound);
+    UnloadMusicStream(conveyor_sound);
 }
