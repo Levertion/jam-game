@@ -23,6 +23,7 @@ int main(void)
     SetTargetFPS(60); // Set our game to run at 60 frames-per-second
 
     LoadShapes();
+    load_hands();
 
     leftside_init();
     TrolleyState trolley = DefaultState();
