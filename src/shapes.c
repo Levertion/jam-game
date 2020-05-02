@@ -1,7 +1,7 @@
 #include "shapes.h"
 #include <stddef.h>
 
-#define NUMBER_OF_SHAPES 12
+#define NUMBER_OF_SHAPES 14
 static Shape AllShapes[NUMBER_OF_SHAPES];
 
 int LoadShapes()
@@ -18,6 +18,8 @@ int LoadShapes()
     Texture2D potatoShapeTexture = LoadTexture("assets/PotatoShape.png");
     Texture2D tomatoShapeTexture = LoadTexture("assets/TomatoShape.png");
     Texture2D juiceShapeTexture = LoadTexture("assets/JuiceShape.png");
+    Texture2D riceShapeTexture = LoadTexture("assets/RiceShape.png");
+    Texture2D veggiesShapeTexture = LoadTexture("assets/VeggiesShape.png");
 
     Shape longshape = {
         {{0, 0, 0, 0, 0, 0, 0, 0},
@@ -151,6 +153,28 @@ int LoadShapes()
          {0, 0, 0, 0, 0, 0, 0, 0}},
         juiceShapeTexture};
 
+    Shape riceshape = {
+        {{0, 0, 0, 0, 0, 0, 0, 0},
+         {0, 0, 0, 0, 0, 0, 0, 0},
+         {0, 0, 1, 1, 1, 0, 0, 0},
+         {0, 0, 1, 1, 1, 0, 0, 0},
+         {0, 0, 1, 1, 1, 0, 0, 0},
+         {0, 0, 0, 0, 0, 0, 0, 0},
+         {0, 0, 0, 0, 0, 0, 0, 0},
+         {0, 0, 0, 0, 0, 0, 0, 0}},
+        riceShapeTexture};
+
+    Shape veggiesshape = {
+        {{0, 0, 0, 0, 0, 0, 0, 0},
+         {0, 0, 0, 0, 0, 0, 0, 0},
+         {0, 0, 0, 1, 1, 0, 0, 0},
+         {0, 0, 1, 1, 1, 1, 0, 0},
+         {0, 0, 1, 1, 1, 1, 0, 0},
+         {0, 0, 0, 1, 1, 0, 0, 0},
+         {0, 0, 0, 0, 0, 0, 0, 0},
+         {0, 0, 0, 0, 0, 0, 0, 0}},
+        veggiesShapeTexture};
+
     AllShapes[0] = longshape;
     AllShapes[1] = shortshape;
     AllShapes[2] = dogshape;
@@ -163,6 +187,8 @@ int LoadShapes()
     AllShapes[9] = potatoshape;
     AllShapes[10] = tomatoshape;
     AllShapes[11] = juiceshape;
+    AllShapes[12] = riceshape;
+    AllShapes[13] = veggiesshape;
     return 1;
 }
 
