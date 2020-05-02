@@ -4,6 +4,7 @@
 #include "stdio.h"
 #include "raylib.h"
 #include "constants.h"
+#include "leftside_logic.h"
 
 void MoveItem(Item *item, enum Direction dir)
 {
@@ -78,7 +79,7 @@ static struct IntVector2 ShapeCoordsUndoRotation(int x, int y, enum Rotation rot
     return (struct IntVector2){.i = i, .j = j};
 }
 
-static bool IsCollidingWithOutside(Item item, int minHeight)
+static bool CollidesWithOutside(Item item, int minHeight)
 {
     bool result = false;
     for (int y = 0; y < GRID_ITEM_LEN; y++)
@@ -140,13 +141,9 @@ static bool ItemsCollide(Item item, Item item2)
     return collided;
 }
 
-bool WouldCollide(const TrolleyState *state, Item item, int exclude)
+static bool CollidesWithItems(const TrolleyState *state, Item item, int exclude)
 {
     bool result = false;
-    if (IsCollidingWithOutside(item, -BLOCKS_ABOVE_TROLLEY))
-    {
-        result = true;
-    }
     for (int i = 0; i < state->len; i++)
     {
         if (i != exclude)
@@ -161,6 +158,20 @@ bool WouldCollide(const TrolleyState *state, Item item, int exclude)
     return result;
 }
 
+bool WouldCollide(const TrolleyState *state, Item item, int exclude)
+{
+    bool result = false;
+    if (CollidesWithOutside(item, -BLOCKS_ABOVE_TROLLEY))
+    {
+        result = true;
+    }
+    if (CollidesWithItems(state, item, exclude))
+    {
+        result = true;
+    }
+    return result;
+}
+
 bool IsColliding(const TrolleyState *state)
 {
     bool result = false;
@@ -171,7 +182,7 @@ bool IsColliding(const TrolleyState *state)
             result = true;
         }
         // Don't short circuit for debug output
-        if (IsCollidingWithOutside(state->items[i], -BLOCKS_ABOVE_TROLLEY))
+        if (CollidesWithOutside(state->items[i], -BLOCKS_ABOVE_TROLLEY))
         {
             result = true;
         }
@@ -183,7 +194,7 @@ bool CanMoveItem(const TrolleyState *state, int itemIdx, enum Direction dir)
 {
     Item clone = state->items[itemIdx];
     MoveItem(&clone, dir);
-    return !WouldCollide(state, clone, itemIdx) && !IsCollidingWithOutside(clone, -BLOCKS_ABOVE_TROLLEY);
+    return !WouldCollide(state, clone, itemIdx) && !CollidesWithOutside(clone, -BLOCKS_ABOVE_TROLLEY);
 }
 
 static int TryMoveN(TrolleyState *state, int itemIdx, int *amount, enum Direction posDir, enum Direction negDir)
@@ -219,9 +230,11 @@ static int TryMoveN(TrolleyState *state, int itemIdx, int *amount, enum Directio
 void TrolleyFrame(TrolleyState *state)
 {
     bool clicking = IsMouseButtonDown(MOUSE_LEFT_BUTTON);
+    bool rightclicking = IsMouseButtonDown(MOUSE_RIGHT_BUTTON);
     bool rotating = IsKeyPressed(KEY_R);
-    if (clicking || state->draggedItem != -1)
+    if (clicking || rightclicking || state->draggedItem != -1)
     {
+        bool acted = false;
         // Dragging
         Vector2 mouse = GetMousePosition();
         int mouseX = (int)mouse.x;
@@ -230,6 +243,7 @@ void TrolleyFrame(TrolleyState *state)
         int mouseBlockY = (mouseY - TROLLEY_Y) / GRID_BLOCK_LENGTH;
         if (state->draggedItem != -1)
         {
+            acted = true;
             int draggedX = state->draggedX;
             int draggedY = state->draggedY;
             int horizontal = mouseBlockX - draggedX;
@@ -248,16 +262,6 @@ void TrolleyFrame(TrolleyState *state)
             if (rotating)
             {
                 enum Rotation NewRotation = (state->items[state->draggedItem].rotation + 1) % 4;
-                /*
-                Item newItem = (Item)
-                {
-                    .shape = state->items[state->draggedItem].shape,
-                    .posX = state->items[state->draggedItem].posX,
-                    .posY = state->items[state->draggedItem].posY,
-                    .gravityCooldown = state->items[state->draggedItem].gravityCooldown,
-                    .rotation = NewRotation,
-                };
-                */
                 Item newItem = state->items[state->draggedItem];
                 newItem.rotation = NewRotation;
 
@@ -298,8 +302,49 @@ void TrolleyFrame(TrolleyState *state)
                         state->draggedY = mouseBlockY;
                         state->draggedItem = i;
                         state->items[i].gravityCooldown = -1;
+                        acted = true;
                         break;
                     }
+                }
+            }
+        }
+        if (!acted && (clicking || rightclicking))
+        {
+            HoldItem *held;
+            if (clicking)
+            {
+                held = &current_hold_item_L;
+            }
+            else
+            {
+                held = &current_hold_item_R;
+            }
+            if (held->shape != NULL)
+            {
+                bool failed = false;
+                Item item = (Item){
+                    .shape = held->shape,
+                    .posX = mouseBlockX - GRID_ITEM_LEN / 2,
+                    .posY = -BLOCKS_ABOVE_TROLLEY - GRID_ITEM_LEN,
+                    .gravityCooldown = GRAVITY_FRAMES,
+                    .rotation = RotUp};
+                for (; item.posY <= mouseBlockY - GRID_ITEM_LEN / 2; item.posY++)
+                {
+                    if (CollidesWithItems(state, item, -1))
+                    {
+                        failed = true;
+                        break;
+                    }
+                }
+                item.posY--;
+                if (CollidesWithOutside(item, -BLOCKS_ABOVE_TROLLEY))
+                {
+                    failed = true;
+                }
+                if (!failed)
+                {
+                    AddItem(state, item);
+                    held->shape = NULL;
                 }
             }
         }
@@ -331,7 +376,7 @@ int CalculateAreaFilled(TrolleyState *state)
     for (int i = 0; i < state->len; i++)
     {
         Item this_item = state->items[i];
-        if (IsCollidingWithOutside(this_item, 0))
+        if (CollidesWithOutside(this_item, 0))
         {
             continue;
         }
