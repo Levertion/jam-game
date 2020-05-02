@@ -1,6 +1,7 @@
 #include "leftside_logic.h"
 #include "raylib.h"
 #include "shapes.h"
+#include "timer.h"
 #include "leftside_graphics.h"
 #include <stddef.h>
 static const int conveyor_velocity = 5;
@@ -159,5 +160,9 @@ void leftside_logic()
         {
             conveyor_offset -= conveyor_text.height;
         }
+    }
+    else
+    {
+        start_timer();
     }
 }

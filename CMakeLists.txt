@@ -19,5 +19,6 @@ add_executable(raylib_template
     src/trolley_logic.c
     src/draw_cache.c
     src/audio.c
+    src/timer.c
 )
 target_link_libraries(raylib_template PRIVATE raylib)

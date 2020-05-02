@@ -6,6 +6,7 @@
 #include "trolley_logic.h"
 #include "draw_cache.h"
 #include "audio.h"
+#include "timer.h"
 #include <stdlib.h>
 
 #define SCREEN_WIDTH (1600)
@@ -69,6 +70,11 @@ int main(void)
         ClearBackground(RAYWHITE);
 
         draw_cache();
+
+        if (is_time_up())
+        {
+            draw_timer();
+        }
 
         DrawTrolleyGrid();
 
