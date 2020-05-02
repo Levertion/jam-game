@@ -1,7 +1,7 @@
 #include "shapes.h"
 #include <stddef.h>
 
-#define NUMBER_OF_SHAPES 7
+#define NUMBER_OF_SHAPES 10
 static Shape AllShapes[NUMBER_OF_SHAPES];
 
 int LoadShapes()
@@ -13,6 +13,9 @@ int LoadShapes()
     Texture2D canShapeTexture = LoadTexture("assets/CanShape.png");
     Texture2D fruitShapeTexture = LoadTexture("assets/FruitShape.png");
     Texture2D bananaShapeTexture = LoadTexture("assets/BananaShape.png");
+    Texture2D baguetteShapeTexture = LoadTexture("assets/BaguetteShape.png");
+    Texture2D loafShapeTexture = LoadTexture("assets/LoafShape.png");
+    Texture2D potatoShapeTexture = LoadTexture("assets/PotatoShape.png");
 
     Shape longshape = {
         {{0, 0, 0, 0, 0, 0, 0, 0},
@@ -91,6 +94,39 @@ int LoadShapes()
          {0, 0, 0, 0, 0, 0, 0, 0}},
         bananaShapeTexture};
 
+    Shape baguetteshape = {
+        {{0, 0, 0, 0, 0, 0, 0, 0},
+         {0, 0, 0, 0, 0, 0, 0, 0},
+         {0, 0, 0, 0, 0, 0, 0, 0},
+         {0, 0, 0, 0, 0, 0, 0, 0},
+         {0, 1, 1, 1, 1, 1, 1, 0},
+         {0, 0, 0, 0, 0, 0, 0, 0},
+         {0, 0, 0, 0, 0, 0, 0, 0},
+         {0, 0, 0, 0, 0, 0, 0, 0}},
+        baguetteShapeTexture};
+
+    Shape loafshape = {
+        {{0, 0, 0, 0, 0, 0, 0, 0},
+         {0, 0, 0, 0, 0, 0, 0, 0},
+         {0, 0, 0, 0, 0, 0, 0, 0},
+         {0, 0, 1, 1, 1, 0, 0, 0},
+         {0, 0, 1, 1, 1, 0, 0, 0},
+         {0, 0, 0, 0, 0, 0, 0, 0},
+         {0, 0, 0, 0, 0, 0, 0, 0},
+         {0, 0, 0, 0, 0, 0, 0, 0}},
+        loafShapeTexture};
+
+    Shape potatoshape = {
+        {{0, 0, 0, 0, 0, 0, 0, 0},
+         {0, 0, 0, 0, 0, 0, 0, 0},
+         {0, 0, 0, 1, 1, 0, 0, 0},
+         {0, 0, 1, 1, 1, 1, 0, 0},
+         {0, 0, 1, 1, 1, 1, 0, 0},
+         {0, 0, 1, 1, 1, 1, 0, 0},
+         {0, 0, 0, 0, 0, 0, 0, 0},
+         {0, 0, 0, 0, 0, 0, 0, 0}},
+        potatoShapeTexture};
+
     AllShapes[0] = longshape;
     AllShapes[1] = shortshape;
     AllShapes[2] = dogshape;
@@ -98,6 +134,9 @@ int LoadShapes()
     AllShapes[4] = canshape;
     AllShapes[5] = fruitshape;
     AllShapes[6] = bananashape;
+    AllShapes[7] = baguetteshape;
+    AllShapes[8] = loafshape;
+    AllShapes[9] = potatoshape;
     return 1;
 }
 
