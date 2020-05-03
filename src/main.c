@@ -54,6 +54,10 @@ int main(void)
         {
             finish_game();
         }
+        else if (is_time_up() && is_checkout_button_pressed())
+        {
+            finish_game();
+        }
         if (!game_ended())
         {
             TrolleyFrame(&trolley);
@@ -83,7 +87,7 @@ int main(void)
             draw_timer();
         }
 
-        // DrawTrolleyGrid();
+        DrawTrolleyGrid();
 
         DrawTrolley(&trolley);
         IsColliding(&trolley);
