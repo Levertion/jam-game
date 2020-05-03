@@ -33,6 +33,11 @@ int main(void)
     LoadTrolleyTextures();
     load_leftside_textures();
     int points = 0;
+    bool in_menu = true;
+    //start button
+    Vector2 start_button_dimensions = MeasureTextEx(GetFontDefault(), "START", 100, 1);
+    Rectangle start_button_bounding_box = {SCREEN_WIDTH / 2 - start_button_dimensions.x / 2, SCREEN_HEIGHT / 2 - start_button_dimensions.y, start_button_dimensions.x, start_button_dimensions.y};
+
     TrolleyState trolley = DefaultState();
 
     AddRandomItems(&trolley);
@@ -44,25 +49,32 @@ int main(void)
         //----------------------------------------------------------------------------------
         // TODO: Update your variables here
         //----------------------------------------------------------------------------------
-        update_audio();
-        leftside_logic();
-        bool allIn;
-
-        points = CalculateAreaFilled(&trolley, &allIn);
-
-        if (allIn && is_time_up() && current_hold_item_L.shape == NULL && current_hold_item_R.shape == NULL)
+        if (in_menu)
         {
-            finish_game();
+            if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && CheckCollisionPointRec(GetMousePosition(), start_button_bounding_box))
+                in_menu = false;
         }
-        else if (is_time_up() && is_checkout_button_pressed())
+        else
         {
-            finish_game();
-        }
-        if (!game_ended())
-        {
-            TrolleyFrame(&trolley);
-        }
+            update_audio();
+            leftside_logic();
+            bool allIn;
 
+            points = CalculateAreaFilled(&trolley, &allIn);
+
+            if (allIn && is_time_up() && current_hold_item_L.shape == NULL && current_hold_item_R.shape == NULL)
+            {
+                finish_game();
+            }
+            else if (is_time_up() && is_checkout_button_pressed())
+            {
+                finish_game();
+            }
+            if (!game_ended())
+            {
+                TrolleyFrame(&trolley);
+            }
+        }
         // Draw
         //----------------------------------------------------------------------------------
         BeginDrawing();
@@ -96,7 +108,15 @@ int main(void)
 
         DrawText(TextFormat("Points: %d", points), 1450, 800, 20, DARKGREEN);
         EndScissorMode();
+        if (in_menu)
+        {
+            ;
+            if (CheckCollisionPointRec(GetMousePosition(), start_button_bounding_box))
+                DrawText("START", start_button_bounding_box.x, start_button_bounding_box.y, 100, MAROON);
+            else
 
+                DrawText("START", start_button_bounding_box.x, start_button_bounding_box.y, 100, RED);
+        }
         EndDrawing();
 
         //----------------------------------------------------------------------------------
