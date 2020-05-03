@@ -19,6 +19,6 @@ bool IsColliding(const TrolleyState *state);
 void TrolleyFrame(TrolleyState *state);
 
 //items that are half in the trolley will not add anyting to this number
-int CalculateAreaFilled(TrolleyState *state);
+int CalculateAreaFilled(TrolleyState *state, bool *point);
 
 #endif

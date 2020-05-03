@@ -45,10 +45,19 @@ int main(void)
         //----------------------------------------------------------------------------------
         update_audio();
         leftside_logic();
+        bool allIn;
 
-        points = CalculateAreaFilled(&trolley);
-        if (!is_fun_no_longer_allowed())
+        points = CalculateAreaFilled(&trolley, &allIn);
+
+        if (allIn && is_time_up())
+        {
+            finish_game();
+        }
+        if (!game_ended())
+        {
             TrolleyFrame(&trolley);
+        }
+
         // Draw
         //----------------------------------------------------------------------------------
         BeginDrawing();

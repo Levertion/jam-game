@@ -4,5 +4,6 @@
 #include "raylib.h"
 void start_timer();
 void draw_timer();
-bool is_fun_no_longer_allowed();
+bool game_ended();
+void finish_game();
 #endif

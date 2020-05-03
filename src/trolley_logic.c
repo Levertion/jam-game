@@ -398,15 +398,17 @@ void TrolleyFrame(TrolleyState *state)
     }
 }
 
-int CalculateAreaFilled(TrolleyState *state)
+int CalculateAreaFilled(TrolleyState *state, bool *allIn)
 {
     int area_filled = 0;
+    *allIn = true;
 
     for (int i = 0; i < state->len; i++)
     {
         Item this_item = state->items[i];
         if (CollidesWithOutside(this_item, 0))
         {
+            *allIn = false;
             continue;
         }
 
