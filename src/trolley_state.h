@@ -29,6 +29,8 @@ typedef struct _trolleyState
     int draggedX;
     int draggedY;
     int draggedItem;
+
+    bool placedInCurrentHold;
 } TrolleyState;
 
 TrolleyState DefaultState();

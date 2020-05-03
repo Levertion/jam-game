@@ -323,8 +323,10 @@ void TrolleyFrame(TrolleyState *state)
                 }
             }
         }
-        if (!acted && (clicking || rightclicking))
+
+        if (!acted && (clicking || rightclicking) && !state->placedInCurrentHold)
         {
+            state->placedInCurrentHold = true;
             HoldItem *held;
             if (clicking)
             {
@@ -371,6 +373,10 @@ void TrolleyFrame(TrolleyState *state)
                 }
             }
         }
+    }
+    else
+    {
+        state->placedInCurrentHold = false;
     }
 
     /// Gravity

@@ -15,6 +15,7 @@ TrolleyState DefaultState()
         .draggedX = -1,
         .draggedY = -1,
         .draggedItem = -1,
+        .placedInCurrentHold = false,
     };
 }
 
