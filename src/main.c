@@ -30,6 +30,7 @@ int main(void)
     LoadShapes();
     load_hands();
     leftside_init();
+    LoadTrolleyTextures();
     load_leftside_textures();
     int points = 0;
     TrolleyState trolley = DefaultState();
@@ -73,6 +74,8 @@ int main(void)
 
         ClearBackground(RAYWHITE);
 
+        DrawTrolleyBackground();
+
         draw_cache();
 
         if (is_time_up())
@@ -80,7 +83,7 @@ int main(void)
             draw_timer();
         }
 
-        DrawTrolleyGrid();
+        // DrawTrolleyGrid();
 
         DrawTrolley(&trolley);
         IsColliding(&trolley);

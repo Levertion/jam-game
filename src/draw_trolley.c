@@ -3,6 +3,13 @@
 #include "constants.h"
 #include "raylib.h"
 
+Texture2D backgroundTexture;
+
+void LoadTrolleyTextures()
+{
+    backgroundTexture = LoadTexture("assets/TrolleyBackground.png");
+}
+
 void DrawTrolley(const TrolleyState *state)
 {
     for (int i = 0; i < state->len; i++)
@@ -42,4 +49,9 @@ void DrawTrolleyGrid()
                                TROLLEY_Y + j * GRID_BLOCK_LENGTH, GRID_BLOCK_LENGTH, GRID_BLOCK_LENGTH, c);
         }
     }
+}
+
+void DrawTrolleyBackground()
+{
+    DrawTexture(backgroundTexture, LEFT_WIDTH, 0, WHITE);
 }
