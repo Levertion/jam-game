@@ -6,6 +6,7 @@
 #include <stddef.h>
 //#define DEBUG_L1
 //#define LEFTSIDE_HOLD_ITEMS
+Texture2D conveyor_text;
 static Shape *yeetable = NULL;
 static int yeet_location = -240, yeet_rotation = 0, yeet_y = 200;
 static int yeet_velocity = 40, yeet_angular_velocity = 30;

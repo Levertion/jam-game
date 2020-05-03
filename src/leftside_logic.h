@@ -26,10 +26,10 @@ typedef struct
     Shape *shape;
 } HoldItem;
 
-HoldItem current_hold_item_L;
-HoldItem current_hold_item_R;
-int conveyor_offset;
-RingBufferItems items_conveyor;
+extern HoldItem current_hold_item_L;
+extern HoldItem current_hold_item_R;
+extern int conveyor_offset;
+extern RingBufferItems items_conveyor;
 void leftside_init();
 void leftside_logic();
 float supply_fraction();
