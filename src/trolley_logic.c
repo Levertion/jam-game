@@ -329,10 +329,18 @@ void TrolleyFrame(TrolleyState *state)
             if (clicking)
             {
                 held = &current_hold_item_L;
+                if (held->shape == NULL)
+                {
+                    held = &current_hold_item_R;
+                }
             }
             else
             {
                 held = &current_hold_item_R;
+                if (held->shape == NULL)
+                {
+                    held = &current_hold_item_L;
+                }
             }
             if (held->shape != NULL)
             {
