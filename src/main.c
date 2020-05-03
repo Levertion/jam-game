@@ -105,6 +105,8 @@ int main(void)
     // De-Initialization
     //--------------------------------------------------------------------------------------
     UnLoadShapes();
+    unload_hands();
+    unload_leftside_textures();
     unload_audio();
     CloseAudioDevice();
     CloseWindow(); // Close window and OpenGL context

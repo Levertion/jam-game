@@ -6,4 +6,5 @@ Texture2D conveyor_text;
 void load_leftside_textures();
 void draw_leftside();
 void yeet_shape(Shape *shape);
+void unload_leftside_textures();
 #endif
