@@ -4,6 +4,7 @@
 #include "raylib.h"
 void start_timer();
 void draw_timer();
+bool is_checkout_button_pressed();
 bool game_ended();
 void finish_game();
 #endif
