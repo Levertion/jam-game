@@ -80,6 +80,7 @@ void UpdateDrawFrame()
     {
         draw_timer();
     }
+    //DrawTrolleyGrid();
 
     DrawTrolleyGrid();
 

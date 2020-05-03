@@ -1,13 +1,15 @@
 #include "audio.h"
 #include "leftside_logic.h"
 #include "raylib.h"
-Music conveyor_sound;
+Music main_music;
+Music panic_music;
 
 #define NO_VOCALS (10)
 #define NO_YEETS (3)
 
 Sound yeet_vocals[NO_VOCALS];
 Sound yeets[NO_YEETS];
+bool panicing = false;
 
 void init_audio()
 {
@@ -35,9 +37,11 @@ void init_audio()
     }
 
     //Wave wave = LoadWave("assets/audio/conveyor/conveyorsoftermp344100.mp3");
-    conveyor_sound = LoadMusicStream("assets/audio/conveyor/conveyorsofter-mp344100.mp3");
-    SetMusicVolume(conveyor_sound, .1f);
-    PlayMusicStream(conveyor_sound);
+    main_music = LoadMusicStream("assets/audio/MainLoop.mp3");
+    SetMusicVolume(main_music, .1f);
+    PlayMusicStream(main_music);
+    panic_music = LoadMusicStream("assets/audio/PackingSong.mp3");
+    SetMusicVolume(panic_music, .1f);
     //UnloadWave(wave);
 }
 
@@ -74,26 +78,34 @@ void play_yeet(int size)
 {
     int vocal = GetRandomValue(0, NO_VOCALS - 1);
     int yeet = yeet_from_size(size);
-    PlaySoundMulti(yeets[yeet]);
-    PlaySoundMulti(yeet_vocals[vocal]);
+    // PlaySoundMulti(yeets[yeet]);
+    // PlaySoundMulti(yeet_vocals[vocal]);
 }
 
 void update_audio()
 {
+
     if (is_time_up())
     {
-        StopMusicStream(conveyor_sound);
-    }
-    if (GetMouseX() < LEFT_WIDTH)
-    {
-        SetMusicVolume(conveyor_sound, .15f);
+        if (!panicing)
+        {
+            StopMusicStream(main_music);
+            PlayMusicStream(panic_music);
+        }
+        UpdateMusicStream(panic_music);
     }
     else
     {
-        SetMusicVolume(conveyor_sound, .1f);
+        UpdateMusicStream(main_music);
     }
-
-    UpdateMusicStream(conveyor_sound);
+    // if (GetMouseX() < LEFT_WIDTH)
+    // {
+    //     SetMusicVolume(main_music, .15f);
+    // }
+    // else
+    // {
+    //     SetMusicVolume(main_music, .1f);
+    // }
 }
 void unload_audio()
 {
@@ -106,5 +118,5 @@ void unload_audio()
     {
         UnloadSound(yeets[i]);
     }
-    UnloadMusicStream(conveyor_sound);
+    UnloadMusicStream(main_music);
 }
