@@ -6,6 +6,10 @@
 #include <stddef.h>
 static const int conveyor_velocity = 5;
 int conveyor_offset = 0;
+HoldItem current_hold_item_L;
+HoldItem current_hold_item_R;
+RingBufferItems items_conveyor;
+
 static int deploy_cooldown = 0;
 static const int max_supply = 60;
 static int supply;
