@@ -45,11 +45,6 @@ int main(void)
         //----------------------------------------------------------------------------------
         update_audio();
         leftside_logic();
-        if (IsKeyPressed(KEY_T))
-        {
-            DeleteAllItems(&trolley);
-            AddRandomItems(&trolley);
-        }
 
         points = CalculateAreaFilled(&trolley);
         if (!is_fun_no_longer_allowed())
