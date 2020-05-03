@@ -98,4 +98,12 @@ void update_audio()
 void unload_audio()
 {
     UnloadMusicStream(conveyor_sound);
+    // for (int i = 0; i < NO_VOCALS; i++)
+    // {
+    //     UnloadSound(yeet_vocals[i]);
+    // }
+    // for (int i = 0; i < NO_YEETS; i++)
+    // {
+    //     UnloadSound(yeets[i]);
+    // }
 }
