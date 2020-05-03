@@ -99,7 +99,7 @@ int main(void)
             draw_timer();
         }
 
-        DrawTrolleyGrid();
+        //DrawTrolleyGrid();
 
         DrawTrolley(&trolley);
         IsColliding(&trolley);

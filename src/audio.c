@@ -1,14 +1,13 @@
 #include "audio.h"
 #include "leftside_logic.h"
 #include "raylib.h"
-Music conveyor_sound;
-
+Sound conveyor_sound;
 #define NO_VOCALS (10)
 #define NO_YEETS (3)
 
 Sound yeet_vocals[NO_VOCALS];
 Sound yeets[NO_YEETS];
-
+static Music main_music;
 void init_audio()
 {
     yeets[0] = LoadSound("assets/audio/yeet/AltYeet.mp3");
@@ -35,9 +34,12 @@ void init_audio()
     }
 
     //Wave wave = LoadWave("assets/audio/conveyor/conveyorsoftermp344100.mp3");
-    conveyor_sound = LoadMusicStream("assets/audio/conveyor/conveyorsofter-mp344100.mp3");
-    SetMusicVolume(conveyor_sound, .1f);
-    PlayMusicStream(conveyor_sound);
+    conveyor_sound = LoadSound("assets/audio/conveyor/conveyorsofter-mp344100.mp3");
+    main_music = LoadMusicStream("assets/audio/MainLoop.mp3");
+    PlayMusicStream(main_music);
+    SetMusicVolume(main_music, .1f);
+    SetSoundVolume(conveyor_sound, .1f);
+    //PlaySound(conveyor_sound);
     //UnloadWave(wave);
 }
 
@@ -80,24 +82,25 @@ void play_yeet(int size)
 
 void update_audio()
 {
-    if (is_time_up())
+    if (!is_time_up() && !IsSoundPlaying(conveyor_sound))
     {
-        StopMusicStream(conveyor_sound);
+        PlaySound(conveyor_sound);
     }
     if (GetMouseX() < LEFT_WIDTH)
     {
-        SetMusicVolume(conveyor_sound, .15f);
+        SetSoundVolume(conveyor_sound, .15f);
     }
     else
     {
-        SetMusicVolume(conveyor_sound, .1f);
+        SetSoundVolume(conveyor_sound, .1f);
     }
 
-    UpdateMusicStream(conveyor_sound);
+    UpdateMusicStream(main_music);
 }
 void unload_audio()
 {
     StopSoundMulti();
+    StopMusicStream(main_music);
     for (int i = 0; i < NO_VOCALS; i++)
     {
         UnloadSound(yeet_vocals[i]);
@@ -106,5 +109,6 @@ void unload_audio()
     {
         UnloadSound(yeets[i]);
     }
-    UnloadMusicStream(conveyor_sound);
+    UnloadSound(conveyor_sound);
+    UnloadMusicStream(main_music);
 }
