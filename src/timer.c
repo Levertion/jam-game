@@ -29,9 +29,7 @@ bool is_checkout_button_pressed()
 }
 void draw_timer()
 {
-    if (!finished)
-        draw_checkout_button();
-    if (start_time == -1 || TIME_LIMIT_TROLLEY - (curr_time - start_time) < 0.0f)
+    if (start_time == -1 || TIME_LIMIT_TROLLEY <= (curr_time - start_time))
         DrawText(TextFormat("%.2lf", 0.0), timer_location.x, timer_location.y, 100, RED);
     else
         DrawText(TextFormat("%.2lf", TIME_LIMIT_TROLLEY - (curr_time - start_time)), timer_location.x, timer_location.y, 50 + 50 * (curr_time - start_time) / TIME_LIMIT_TROLLEY, RED);
