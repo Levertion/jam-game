@@ -49,7 +49,7 @@ int main(void)
 
         points = CalculateAreaFilled(&trolley, &allIn);
 
-        if (allIn && is_time_up())
+        if (allIn && is_time_up() && current_hold_item_L.shape == NULL && current_hold_item_R.shape == NULL)
         {
             finish_game();
         }
