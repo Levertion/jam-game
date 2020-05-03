@@ -2,6 +2,7 @@
 #include "leftside_logic.h"
 #include "raylib.h"
 #include "shapes.h"
+#include "audio.h"
 #include <stddef.h>
 //#define DEBUG_L1
 //#define LEFTSIDE_HOLD_ITEMS
@@ -17,6 +18,7 @@ void load_leftside_textures()
 }
 void yeet_shape(Shape *shape)
 {
+    play_yeet(shape->size);
     yeetable = shape;
     yeet_rotation = 0;
     yeet_location = LS_LOGICAL_WIDTH + shape->art.width;
