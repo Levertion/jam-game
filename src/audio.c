@@ -8,6 +8,7 @@ Sound conveyor_sound;
 Sound yeet_vocals[NO_VOCALS];
 Sound yeets[NO_YEETS];
 static Music main_music;
+static Music panic_music;
 void init_audio()
 {
     yeets[0] = LoadSound("assets/audio/yeet/AltYeet.mp3");
@@ -36,8 +37,10 @@ void init_audio()
     //Wave wave = LoadWave("assets/audio/conveyor/conveyorsoftermp344100.mp3");
     conveyor_sound = LoadSound("assets/audio/conveyor/conveyorsofter-mp344100.mp3");
     main_music = LoadMusicStream("assets/audio/MainLoop.mp3");
+    panic_music = LoadMusicStream("assets/audio/PackingSong.mp3");
     PlayMusicStream(main_music);
     SetMusicVolume(main_music, .1f);
+    SetMusicVolume(panic_music, .1f);
     SetSoundVolume(conveyor_sound, .1f);
     //PlaySound(conveyor_sound);
     //UnloadWave(wave);
@@ -86,6 +89,11 @@ void update_audio()
     {
         PlaySound(conveyor_sound);
     }
+    else if (is_time_up() && IsMusicPlaying(main_music))
+    {
+        StopMusicStream(main_music);
+        PlayMusicStream(panic_music);
+    }
     if (GetMouseX() < LEFT_WIDTH)
     {
         SetSoundVolume(conveyor_sound, .15f);
@@ -96,11 +104,12 @@ void update_audio()
     }
 
     UpdateMusicStream(main_music);
+    UpdateMusicStream(panic_music);
 }
 void unload_audio()
 {
     StopSoundMulti();
-    StopMusicStream(main_music);
+    //StopMusicStream(main_music);
     for (int i = 0; i < NO_VOCALS; i++)
     {
         UnloadSound(yeet_vocals[i]);
@@ -110,5 +119,6 @@ void unload_audio()
         UnloadSound(yeets[i]);
     }
     UnloadSound(conveyor_sound);
+    UnloadMusicStream(panic_music);
     UnloadMusicStream(main_music);
 }
