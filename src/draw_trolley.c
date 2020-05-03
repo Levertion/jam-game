@@ -36,8 +36,10 @@ void DrawTrolleyGrid()
     {
         for (int j = -BLOCKS_ABOVE_TROLLEY; j < 0; j++)
         {
+            Color c = LIGHTGRAY;
+            c.a = 100;
             DrawRectangleLines(TROLLEY_X + i * GRID_BLOCK_LENGTH,
-                               TROLLEY_Y + j * GRID_BLOCK_LENGTH, GRID_BLOCK_LENGTH, GRID_BLOCK_LENGTH, LIGHTGRAY);
+                               TROLLEY_Y + j * GRID_BLOCK_LENGTH, GRID_BLOCK_LENGTH, GRID_BLOCK_LENGTH, c);
         }
     }
 }
