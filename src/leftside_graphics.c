@@ -83,3 +83,8 @@ void draw_leftside()
     }
 #endif
 }
+void unload_leftside_textures()
+{
+    UnloadTexture(main_texture);
+    UnloadTexture(conveyor_text);
+}
